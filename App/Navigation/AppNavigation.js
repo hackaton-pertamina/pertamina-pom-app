@@ -8,7 +8,11 @@ import styles from './Styles/NavigationStyles'
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
   DetailPaketScreen: { screen: DetailPaketScreen },
-  HomeScreen: { screen: HomeScreen },
+  HomeScreen: { 
+    screen: HomeScreen, 
+    navigationOptions: {
+      header: null,
+  }},
   LaunchScreen: { screen: LaunchScreen }
 }, {
   // Default config for all screens
