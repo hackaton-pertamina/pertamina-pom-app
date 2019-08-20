@@ -87,7 +87,7 @@ class HomeScreen extends Component {
           >
             <Icon
               style={styles.iconStyle}
-              name="note-text"
+              name="file-document-box"
               size={28}
               color={Colors.iconGrey}
             />
@@ -102,6 +102,24 @@ class HomeScreen extends Component {
           typeId={1}
           name={'Pertalite'}
           days={22}/>
+        <View style={styles.rowLocation}>
+          <View style={styles.viewInfoLoc}>
+            <Text style={styles.textInfo} numberOfLines={2}> Dibawah ini adalah Pom Bensin yang terdekat dari lokasi Anda 
+            </Text>
+          </View>
+          <View style={styles.viewMyLoc}>
+            <View style={styles.colMyLoc}>
+              <Text style={styles.text10}> Lokasi Anda </Text>
+              <Text style={[styles.text10, {color: Colors.lblGrey}]}> Jalan wusyang 3 </Text>
+            </View>
+            <Icon
+              style={styles.iconStyle}
+              name="crosshairs-gps"
+              size={14}
+              color={Colors.iconGrey}
+            />
+          </View>
+        </View>
       </Animatable.View>
     )
   }
