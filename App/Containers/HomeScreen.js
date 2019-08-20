@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Text,
   FlatList,
-  Linking,
   ScrollView,
   RefreshControl
 } from "react-native";
@@ -15,6 +14,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import * as Animatable from "react-native-animatable";
 import { connect } from 'react-redux'
 import InfoSaldo from '../Components/InfoSaldo';
+import Subscription from '../Components/Subscription';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -35,6 +35,10 @@ class HomeScreen extends Component {
 
   topUpSaldo = () => {
     alert('top up dong');
+  }
+
+  subscribeNow = () => {
+    alert('Subscribe dong');
   }
 
   render () {
@@ -86,6 +90,7 @@ class HomeScreen extends Component {
           </TouchableOpacity>
         </View>
         <InfoSaldo onPress={this.topUpSaldo} />
+        <Subscription onPress={this.subscribeNow} isSubs={false}/>
       </Animatable.View>
     )
   }
