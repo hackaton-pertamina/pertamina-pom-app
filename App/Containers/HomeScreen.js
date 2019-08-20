@@ -14,6 +14,7 @@ import { Colors, Images } from "../Themes";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import * as Animatable from "react-native-animatable";
 import { connect } from 'react-redux'
+import InfoSaldo from '../Components/InfoSaldo';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -21,7 +22,21 @@ import { connect } from 'react-redux'
 import styles from './Styles/HomeScreenStyle'
 
 class HomeScreen extends Component {
-  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pressed: false,
+      modalPressed: false,
+      modalInfo: false,
+      refreshing: false,
+    }
+  }
+
+  topUpSaldo = () => {
+    alert('top up dong');
+  }
+
   render () {
     const photo = '';
     return (
@@ -37,39 +52,40 @@ class HomeScreen extends Component {
             activeOpacity={0.5}
             
           >
-              {photo ? (
-                <Image
-                  resizeMode="cover"
-                  source={{ uri: photo ? photo.imageUri  : ''}}
-                  style={styles.imgAva}
-                />
-              ) : (
-                <Icon
-                  style={styles.iconStyle}
-                  name="account-circle"
-                  size={28}
-                  color={'#e74c3c'}
-                />
-              )}
-            </TouchableOpacity>
-            <View style={styles.viewLogo}>
-              <Image
-                resizeMode="contain"
-                source={Images.logo}
-                style={styles.imgLogo}
+            {photo ? (
+            <Image
+              resizeMode="cover"
+              source={{ uri: photo ? photo.imageUri  : ''}}
+              style={styles.imgAva}
+            />
+            ) : (
+            <Icon
+              style={styles.iconStyle}
+              name="account-circle"
+              size={28}
+              color={Colors.redIcon}
+            />
+            )}
+          </TouchableOpacity>
+          <View style={styles.viewLogo}>
+            <Image
+              resizeMode="contain"
+              source={Images.logo}
+              style={styles.imgLogo}
               />
-            </View>
-            <TouchableOpacity
-              style={styles.viewHistory}
-            >
-              <Icon
-                style={styles.iconStyle}
-                name="note-text"
-                size={28}
-                color={'grey'}
-              />
-            </TouchableOpacity>
           </View>
+          <TouchableOpacity
+            style={styles.viewHistory}
+          >
+            <Icon
+              style={styles.iconStyle}
+              name="note-text"
+              size={28}
+              color={Colors.iconGrey}
+            />
+          </TouchableOpacity>
+        </View>
+        <InfoSaldo onPress={this.topUpSaldo} />
       </Animatable.View>
     )
   }

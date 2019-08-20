@@ -1,24 +1,25 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
+import { Colors, Fonts, Images } from '../Themes';
 import styles from './Styles/InfoSaldoStyle'
-
+import ButtonCustom from '../Components/ButtonCustom';
 export default class InfoSaldo extends Component {
-  // // Prop type warnings
-  // static propTypes = {
-  //   someProperty: PropTypes.object,
-  //   someSetting: PropTypes.bool.isRequired,
-  // }
-  //
-  // // Defaults for props
-  // static defaultProps = {
-  //   someSetting: false
-  // }
+
 
   render () {
+    const {onPress} = this.props;
     return (
       <View style={styles.container}>
-        <Text>InfoSaldo Component</Text>
+        <View style={styles.row1}>
+          <Image
+            resizeMode="contain"
+            source={Images.linkAja}
+            style={styles.viewImg}
+          />
+          <Text style={styles.lbl1}>Rp. 500.000</Text>
+        </View>
+        <ButtonCustom onPress={onPress} textMain={'Isi Saldo'} isBorder={true}/>
       </View>
     )
   }
