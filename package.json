@@ -8,6 +8,8 @@
     "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean --force",
     "clean:android": "cd android/ && ./gradlew clean && cd .. && react-native run-android",
     "newclear": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build && rm -rf node_modules/ && npm cache clean --force && npm i",
+    "android:dev": "cp android/app/google-services.stag.json android/app/google-services.json && react-native run-android",
+    "win:android:dev": "react-native run-android",
     "test:watch": "jest --watch",
     "updateSnapshot": "jest --updateSnapshot",
     "coverage": "jest --coverage && open coverage/lcov-report/index.html || xdg-open coverage/lcov-report/index.html",
@@ -100,6 +102,11 @@
     ]
   },
   "config": {},
+  "rnpm": {
+    "assets": [
+	  "./Assets/fonts/"
+    ]
+  },
   "standard": {
     "parser": "babel-eslint",
     "globals": [
