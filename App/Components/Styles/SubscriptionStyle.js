@@ -5,13 +5,16 @@ const { height, width } = Dimensions.get('window');
 export default StyleSheet.create({
   container:{
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     alignItems: 'center'
   },
   viewInfo:{
     flex: 4,
     flexDirection: 'column',
-    padding: 16,
+    paddingTop: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingBottom: 32,
     justifyContent: 'flex-start',
     alignSelf: 'flex-start',
     zIndex: 10
@@ -38,5 +41,49 @@ export default StyleSheet.create({
     height: 120,
     width: 200,
     resizeMode: 'contain'
+  },
+  row1: {
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: 16
+  },
+  col1: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: 8
+  },
+  col2: {
+    flex: 3,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: 16
+  },
+  col3: {
+    flex: 5,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  text12:{
+    textAlign: 'left',
+    ...Fonts.style.roboto12,
+    color: Colors.black
+  },
+  text10:{
+    textAlign: 'left',
+    ...Fonts.style.roboto10,
+    color: Colors.black
+  },
+  textTitleBlack:{
+    textAlign: 'left',
+    ...Fonts.style.medium16,
+    color: Colors.black
+  },
+  iconStyle:{
+    alignSelf: 'center',
   },
 })

@@ -22,7 +22,7 @@ const size = {
   regular: 16,
   medium: 14,
   small: 12,
-  tiny: 8.5,
+  tiny: 10,
 };
 
 const style = {
@@ -81,6 +81,10 @@ const style = {
   medium20:{
     fontFamily: type.medium,
     fontSize: size.h5
+  },
+  roboto10:{
+    fontFamily: type.base,
+    fontSize: size.tiny
   },
   roboto12:{
     fontFamily: type.base,

@@ -19,7 +19,7 @@ export default class InfoSaldo extends Component {
           />
           <Text style={styles.lbl1}>Rp. 500.000</Text>
         </View>
-        <ButtonCustom onPress={onPress} textMain={'Isi Saldo'} isBorder={true}/>
+        <ButtonCustom onPress={onPress} textMain={'Isi Saldo'} isBorder={true} padding={10}/>
       </View>
     )
   }

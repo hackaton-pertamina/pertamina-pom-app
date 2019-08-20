@@ -7,12 +7,13 @@ export default class ButtonCustom extends Component {
 
 
   render () {
-    const {onPress, textMain, isBorder, inStyle, color, bgColor} = this.props;
+    const {onPress, textMain, isBorder, inStyle, color, bgColor, padding} = this.props;
     return (
       <TouchableOpacity
           style={[styles.container, 
               isBorder && styles.borderStyle,
               bgColor && {backgroundColor: bgColor},
+              padding && {padding},
               inStyle && inStyle]}
           onPress={() => onPress()}
         >

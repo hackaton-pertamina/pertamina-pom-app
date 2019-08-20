@@ -41,6 +41,10 @@ class HomeScreen extends Component {
     alert('Subscribe dong');
   }
 
+  orderNow = () => {
+    alert('Order dong');
+  }
+
   render () {
     const photo = '';
     return (
@@ -90,7 +94,14 @@ class HomeScreen extends Component {
           </TouchableOpacity>
         </View>
         <InfoSaldo onPress={this.topUpSaldo} />
-        <Subscription onPress={this.subscribeNow} isSubs={false}/>
+        <Subscription 
+          onPressSub={this.subscribeNow}
+          onPressOrder={this.orderNow} 
+          isSubs={true}
+          saldo={30} 
+          typeId={1}
+          name={'Pertalite'}
+          days={22}/>
       </Animatable.View>
     )
   }
