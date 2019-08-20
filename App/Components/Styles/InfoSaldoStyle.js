@@ -15,7 +15,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignSelf: 'flex-start',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: 5,
   },
   viewImg: {
     height: 32,
@@ -24,6 +25,7 @@ export default StyleSheet.create({
   },
   lbl1: {
     marginLeft: 16,
+    textAlign: 'center',
     padding: 5,
     ...Fonts.style.medium16,
     color: Colors.white
