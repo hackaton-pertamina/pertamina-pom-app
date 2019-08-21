@@ -11,6 +11,11 @@ export default StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 10,
   },
+  viewScrollList:{
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    paddingBottom: 30
+  },
   viewHistory:{
     padding: 10,
     paddingRight: 20,
@@ -61,7 +66,7 @@ export default StyleSheet.create({
     padding: 16
   },
   textInfo: {
-    textAlign: 'center',
+    textAlign: 'left',
     lineHeight: 18,
     ...Fonts.style.roboto12,
     color: Colors.black
