@@ -9,6 +9,7 @@ export default StyleSheet.create({
     marginTop:4,
     marginLeft:16,
     marginBottom:2,
+    backgroundColor: Colors.white
   },
   viewImg:{
     flex: 2,

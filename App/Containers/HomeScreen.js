@@ -59,6 +59,32 @@ class HomeScreen extends Component {
           distance: "1.5",
           is_open: false,
         }
+      ],
+      listService:[
+        {
+          id: 1,
+          name: 'Cuci Mobil',
+          navigate: 'Belum',
+          image: Images.cuciMobil
+        },
+        {
+          id: 2,
+          name: 'TuneUp Mobil',
+          navigate: 'Belum',
+          image: Images.tuneupMobil
+        },
+        {
+          id: 3,
+          name: 'Cuci Motor',
+          navigate: 'Belum',
+          image: Images.cuciMotor
+        },
+        {
+          id: 4,
+          name: 'TuneUp Motor',
+          navigate: 'Belum',
+          image: Images.tuneupMotor
+        }
       ]
     }
   }
@@ -79,6 +105,10 @@ class HomeScreen extends Component {
     alert(id, 'tes aja');
   }
 
+  goService = (id, navigate) => {
+    alert(id, 'tes aja');
+  }
+
   renderItem = (item) =>{
 
     return (<SpbuList
@@ -93,7 +123,7 @@ class HomeScreen extends Component {
   }
 
   render () {
-    const {listNear} = this.state;
+    const {listNear, listService} = this.state;
     const photo = '';
     return (
       <Animatable.View
@@ -135,7 +165,7 @@ class HomeScreen extends Component {
           >
             <Icon
               style={styles.iconStyle}
-              name="file-document-box"
+              name="receipt"
               size={28}
               color={Colors.iconGrey}
             />
@@ -151,6 +181,31 @@ class HomeScreen extends Component {
             typeId={1}
             name={'Pertalite'}
             days={22}/>
+          <View style={styles.viewService}>
+            <Text style={styles.textTitleBold}> Pesan Layanan Kami
+            </Text>
+            <Text style={[styles.textSub, {marginTop: 8}]}> Temukan kemudahan mencari jasa perawatan kendaraan disekitarmu
+            </Text>
+            <View style={styles.viewOption}>
+              {
+                listService.map((item) => {
+                  return (
+                    <TouchableOpacity 
+                      style={styles.viewType} 
+                      onPress={() => this.goService(item.id, item.navigate)}>
+                      <Image
+                        resizeMode="contain"
+                        source={item.image}
+                        style={styles.imgService}
+                      />
+                      <Text style={[styles.text10, {marginTop: 5, fontWeight: '500'}]}> {item.name}
+                      </Text>
+                    </TouchableOpacity>
+                  )
+                }) 
+              }
+            </View>
+          </View>
           <View style={styles.rowLocation}>
             <View style={styles.viewInfoLoc}>
               <Text style={styles.textInfo} numberOfLines={2} ellipsizeMode="tail">Dibawah ini adalah Pom Bensin yang terdekat dari lokasi Anda 

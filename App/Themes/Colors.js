@@ -32,8 +32,8 @@ const colors = {
   green: '#70C453',
   yellow: '#C7BA01',
   iconGrey: 'rgba(0, 0, 0, 0.54)',
-  txtRed: '#B00020'
-
+  txtRed: '#B00020',
+  bgGrey: '#FBF9F9'
 }
 
 export default colors

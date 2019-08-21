@@ -10,6 +10,7 @@ export default StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 10,
+    backgroundColor: Colors.white
   },
   viewScrollList:{
     flexDirection: 'column',
@@ -56,7 +57,8 @@ export default StyleSheet.create({
   rowLocation:{
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: Colors.white
   },
   viewInfoLoc:{
     flex: 6,
@@ -88,5 +90,45 @@ export default StyleSheet.create({
     textAlign: 'right',
     ...Fonts.style.roboto10,
     color: Colors.black
-  }
+  },
+  textTitleBold:{
+    textAlign: 'left',
+    ...Fonts.style.medium16,
+    color: Colors.black,
+    fontWeight: 'bold'
+  },
+  textSub:{
+    textAlign: 'left',
+    ...Fonts.style.roboto10,
+    color: Colors.black
+  },
+  viewService:{
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    marginTop: 5,
+    marginBottom: 5,
+    backgroundColor: Colors.white,
+    padding: 16,
+  },
+  viweMargin:{
+    marginTop: 5,
+    marginBottom: 5
+  },
+  viewOption:{
+    flex: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    padding: 16,
+  
+  },
+  viewType:{
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  imgService:{
+    height: 34,
+    width: 34,
+    alignSelf: 'center'
+  },
 })
