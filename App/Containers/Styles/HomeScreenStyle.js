@@ -112,7 +112,8 @@ export default StyleSheet.create({
   },
   viweMargin:{
     marginTop: 5,
-    marginBottom: 5
+    marginBottom: 5,
+    backgroundColor: Colors.white
   },
   viewOption:{
     flex: 10,

@@ -13,6 +13,7 @@ import { Colors, Images } from "../Themes";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import * as Animatable from "react-native-animatable";
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation';
 import InfoSaldo from '../Components/InfoSaldo';
 import Subscription from '../Components/Subscription';
 import SpbuList from '../Components/SpbuList';
@@ -102,7 +103,10 @@ class HomeScreen extends Component {
   }
 
   onPressSpbu = (id) => {
-    alert(id, 'tes aja');
+    // alert(id, 'tes aja');
+    this.props.dispatch(NavigationActions.navigate({ 
+      routeName: 'CartScreen'
+    }));
   }
 
   goService = (id, navigate) => {
@@ -130,7 +134,7 @@ class HomeScreen extends Component {
         animation="zoomInUp"
         iterationCount={1}
         duration={500}
-        style={styles.container}
+        style={[styles.container, {backgroundColor: Colors.bgGrey}]}
       >
         <View style={styles.rowHeader}>
           <TouchableOpacity
@@ -225,14 +229,15 @@ class HomeScreen extends Component {
             </View>
           </View>
           <FlatList
-              data={listNear}
-              keyExtractor={(item, index) => index.toString()}
-              // onRefresh={() => this.onRefresh()}
-              // refreshing={refreshing}
-              renderItem={({ item }) => {
-                return this.renderItem(item)
-              }
+            data={listNear}
+            style={styles.viweMargin}
+            keyExtractor={(item, index) => index.toString()}
+            // onRefresh={() => this.onRefresh()}
+            // refreshing={refreshing}
+            renderItem={({ item }) => {
+              return this.renderItem(item)
             }
+          }
           />
         </ScrollView>
       </Animatable.View>
@@ -247,6 +252,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    dispatch
   }
 }
 
