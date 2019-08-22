@@ -10,7 +10,11 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
-  MyOrderScreen: { screen: MyOrderScreen },
+  MyOrderScreen: { 
+    screen: MyOrderScreen,
+    navigationOptions: {
+      header: null,
+  }},
   InsertPinScreen: { 
     screen: InsertPinScreen,
     navigationOptions: {

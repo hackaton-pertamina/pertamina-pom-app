@@ -30,9 +30,11 @@ export default class BackHeader extends Component {
           />
         </TouchableOpacity>
         { title &&
-          <Text style={styles.textTitle}>
-            {titleText}
-          </Text>
+          <View style={styles.colText}>
+            <Text style={styles.textTitle}>
+              {titleText}
+            </Text>
+          </View>
         }
         { subTitle &&
           <View style={styles.colText}>
