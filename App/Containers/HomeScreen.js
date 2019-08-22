@@ -65,25 +65,21 @@ class HomeScreen extends Component {
         {
           id: 1,
           name: 'Cuci Mobil',
-          navigate: 'Belum',
           image: Images.cuciMobil
         },
         {
           id: 2,
           name: 'TuneUp Mobil',
-          navigate: 'Belum',
           image: Images.tuneupMobil
         },
         {
           id: 3,
           name: 'Cuci Motor',
-          navigate: 'Belum',
           image: Images.cuciMotor
         },
         {
           id: 4,
           name: 'TuneUp Motor',
-          navigate: 'Belum',
           image: Images.tuneupMotor
         }
       ]
@@ -124,8 +120,18 @@ class HomeScreen extends Component {
     this.setState({pressed: false});
   }
 
-  goService = (id, navigate) => {
-    alert(id, 'tes aja');
+  goService = (id, name) => {
+    if (!this.state.pressed) {
+      this.setState({pressed: true});
+      this.props.dispatch(NavigationActions.navigate({ 
+        routeName: 'PaketServiceScreen',
+        params: {
+          id,
+          name,
+        }
+      }));
+      this.clearStatePress();
+    }
   }
 
   renderItem = (item) =>{
@@ -211,7 +217,7 @@ class HomeScreen extends Component {
                     <TouchableOpacity 
                       key={i}
                       style={styles.viewType} 
-                      onPress={() => this.goService(item.id, item.navigate)}>
+                      onPress={() => this.goService(item.id, item.name)}>
                       <Image
                         resizeMode="contain"
                         source={item.image}

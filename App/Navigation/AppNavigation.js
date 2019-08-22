@@ -1,4 +1,5 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import PaketServiceScreen from '../Containers/PaketServiceScreen'
 import PaketSubscriptionScreen from '../Containers/PaketSubscriptionScreen'
 import MyOrderScreen from '../Containers/MyOrderScreen'
 import InsertPinScreen from '../Containers/InsertPinScreen'
@@ -11,6 +12,7 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  PaketServiceScreen: { screen: PaketServiceScreen },
   PaketSubscriptionScreen: { 
     screen: PaketSubscriptionScreen,
     navigationOptions: {

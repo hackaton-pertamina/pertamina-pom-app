@@ -12,9 +12,9 @@ import PaketList from '../Components/PaketList';
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation';
 // Styles
-import styles from './Styles/PaketSubscriptionScreenStyle'
+import styles from './Styles/PaketServiceScreenStyle'
 
-class PaketSubscriptionScreen extends Component {
+class PaketServiceScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -23,30 +23,17 @@ class PaketSubscriptionScreen extends Component {
       listPaket:[
         {
           id: 1,
-          name: 'Pertalite',
-          color: 'green',
+          name: 'Ganti Oli + TuneUp',
           navigate: 'CartScreen',
-          volume: 30,
-          duration: 30,
-          price: 210000
+          description: 'Ganti Oli gratis',
+          price: 300000
         },
         {
           id: 2,
-          name: 'Pertalite',
-          color: 'green',
+          name: 'Servis Komplit',
           navigate: 'CartScreen',
-          volume: 20,
-          duration: 30,
-          price: 140000
-        },
-        {
-          id: 3,
-          name: 'Pertalite',
-          color: 'green',
-          navigate: 'CartScreen',
-          volume: 10,
-          duration: 30,
-          price: 70000
+          description: 'TuneUp, Spooring, Balancing',
+          price: 500000
         }
       ]
     }
@@ -80,22 +67,22 @@ class PaketSubscriptionScreen extends Component {
   renderItem = (item) =>{
     return (<PaketList
       name={item.name}
-      color={item.color}
-      volume={item.volume}
-      duration={item.duration}
+      description={item.description}
       price={item.price}
+      type={'service'}
       onPress={() => this.onPressPaket(item.id, item.navigate)}
     />);
   }
 
   render () {
     const { params } = this.props.navigation.state;
+    const titleName = params && params.name ? params.name : '';
     const {listPaket} = this.state;
     return (
       <View style={styles.container}>
         <BackHeader 
           title={true} 
-          titleText={'Paket Pertalite'} 
+          titleText={titleName} 
           backPress={this.goBack}/>
         <ScrollView contentContainerStyle={styles.viewScroll}>
           <FlatList
@@ -125,4 +112,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaketSubscriptionScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(PaketServiceScreen)
