@@ -1,4 +1,5 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import PaketSubscriptionScreen from '../Containers/PaketSubscriptionScreen'
 import MyOrderScreen from '../Containers/MyOrderScreen'
 import InsertPinScreen from '../Containers/InsertPinScreen'
 import CartScreen from '../Containers/CartScreen'
@@ -10,6 +11,11 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  PaketSubscriptionScreen: { 
+    screen: PaketSubscriptionScreen,
+    navigationOptions: {
+      header: null,
+  }},
   MyOrderScreen: { 
     screen: MyOrderScreen,
     navigationOptions: {

@@ -39,8 +39,10 @@ export default StyleSheet.create({
     marginRight: 20
   },
   imgSubs:{
-    height: 120,
-    width: 200,
+    marginLeft: -32,
+    marginBottom: -32,
+    height: 140,
+    width: 240,
     resizeMode: 'contain'
   },
   row1: {

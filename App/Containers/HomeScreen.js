@@ -95,7 +95,9 @@ class HomeScreen extends Component {
   }
 
   subscribeNow = () => {
-    alert('Subscribe dong');
+    this.props.dispatch(NavigationActions.navigate({ 
+      routeName: 'PaketSubscriptionScreen'
+    }));
   }
 
   orderNow = () => {
@@ -114,7 +116,6 @@ class HomeScreen extends Component {
   }
 
   renderItem = (item) =>{
-
     return (<SpbuList
       name={item.name}
       duration={item.wait_duration_minutes.toFixed(0)}
@@ -180,7 +181,7 @@ class HomeScreen extends Component {
           <Subscription 
             onPressSub={this.subscribeNow}
             onPressOrder={this.orderNow} 
-            isSubs={true}
+            isSubs={false}
             saldo={30} 
             typeId={1}
             name={'Pertalite'}
@@ -231,7 +232,7 @@ class HomeScreen extends Component {
           </View>
           <FlatList
             data={listNear}
-            style={styles.viweMargin}
+            style={styles.viewMargin}
             keyExtractor={(item, index) => index.toString()}
             // onRefresh={() => this.onRefresh()}
             // refreshing={refreshing}
