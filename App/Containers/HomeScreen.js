@@ -125,6 +125,12 @@ class HomeScreen extends Component {
     }
   }
 
+  seeHistory = () => {
+    this.props.dispatch(NavigationActions.navigate({ 
+      routeName: 'HistoryTransactionScreen'
+    }));
+  }
+
   clearStatePress = () => {
     // Pembersihan state yang digunakan
     this.setState({pressed: false});
@@ -196,6 +202,7 @@ class HomeScreen extends Component {
           </View>
           <TouchableOpacity
             style={styles.viewHistory}
+            onPress={this.seeHistory}
           >
             <Icon
               style={styles.iconStyle}

@@ -1,4 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import HistoryUsageScreen from '../Containers/HistoryUsageScreen'
+import HistoryTransactionScreen from '../Containers/HistoryTransactionScreen'
 import PaketServiceScreen from '../Containers/PaketServiceScreen'
 import PaketSubscriptionScreen from '../Containers/PaketSubscriptionScreen'
 import MyOrderScreen from '../Containers/MyOrderScreen'
@@ -12,6 +14,16 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  HistoryUsageScreen: {
+    screen: HistoryTransactionScreen,
+    navigationOptions: {
+      header: null,
+  }},
+  HistoryTransactionScreen: { 
+    screen: HistoryTransactionScreen,
+    navigationOptions: {
+      header: null,
+  }},
   PaketServiceScreen: { screen: PaketServiceScreen },
   PaketSubscriptionScreen: { 
     screen: PaketSubscriptionScreen,
