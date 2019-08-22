@@ -40,10 +40,10 @@ export default class BottomFacilities extends Component {
         </View>
         <View style={styles.rowBetween}>
           <View style={styles.col2}>
-            <Text style={styles.text10} numberOfLines={2} ellipsizeMode={'tail'}>
+            <Text style={[styles.text10, {width: 80,}]} numberOfLines={2} ellipsizeMode={'tail'}>
               Jarak Dari Tempat Anda
             </Text>
-            <Text style={[styles.text12, {color: Colors.orange}]}>
+            <Text style={[styles.text12, {color: Colors.orange, fontSize: 14, textAlign: 'right'}]}>
               1.5 Km
             </Text>
           </View>

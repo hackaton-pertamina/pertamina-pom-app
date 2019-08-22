@@ -13,6 +13,7 @@ import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation';
 // Styles
 import styles from './Styles/PaketSubscriptionScreenStyle'
+import SubscriptionStyle from '../Components/Styles/SubscriptionStyle';
 
 class PaketSubscriptionScreen extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class PaketSubscriptionScreen extends Component {
           id: 1,
           name: 'Pertalite',
           color: 'green',
-          navigate: 'Belum',
+          navigate: 'CartScreen',
           volume: 30,
           duration: 30,
           price: 210000
@@ -34,7 +35,7 @@ class PaketSubscriptionScreen extends Component {
           id: 2,
           name: 'Pertalite',
           color: 'green',
-          navigate: 'Belum',
+          navigate: 'CartScreen',
           volume: 20,
           duration: 30,
           price: 140000
@@ -43,7 +44,7 @@ class PaketSubscriptionScreen extends Component {
           id: 3,
           name: 'Pertalite',
           color: 'green',
-          navigate: 'Belum',
+          navigate: 'CartScreen',
           volume: 10,
           duration: 30,
           price: 70000
@@ -56,8 +57,25 @@ class PaketSubscriptionScreen extends Component {
     this.props.navigation.goBack();
   }
 
-  onPressPaket = (id, navigate) => {
-    alert(id, 'oi')
+  onPressPaket = (id, screen) => {
+    if (!this.state.pressed) {
+      this.setState({pressed: true});
+      this.props.dispatch(NavigationActions.navigate({ 
+        routeName: screen,
+        params: {
+          id,
+          type: 'subscribe',
+          clearPress: this.clearStatePress.bind(this),
+        }
+      }));
+      this.clearStatePress();
+    }
+  }
+    
+
+  clearStatePress = () => {
+    // Pembersihan state yang digunakan
+    this.setState({pressed: false});
   }
 
   renderItem = (item) =>{
@@ -67,11 +85,12 @@ class PaketSubscriptionScreen extends Component {
       volume={item.volume}
       duration={item.duration}
       price={item.price}
-      onPress={() => this.onPressPaket(item.id, navigate)}
+      onPress={() => this.onPressPaket(item.id, item.navigate)}
     />);
   }
 
   render () {
+    const { params } = this.props.navigation.state;
     const {listPaket} = this.state;
     return (
       <View style={styles.container}>

@@ -45,53 +45,64 @@ class CartScreen extends Component {
   }
 
   render () {
+    const {params}= this.props.navigation.state;
+    const type = params && params.type ? params.type : '';
     return (
       <View style={styles.container}>
         <BackHeader 
-          subTitle={true} 
-          titleText={'SPBU 31.143.01'} 
-          subTitleText={'Jalan Raya Cileduk'}
+          title={type != 'subscribe'&& true} 
+          subTitle={type == 'subscribe'&& true} 
+          titleText={type == 'subscribe' ? 'Pembeliaanmu' : 'SPBU 31.143.01'} 
+          subTitleText={type != 'subscribe'&& 'Jalan Raya Cileduk'}
           backPress={this.goBack}/>
         <ScrollView contentContainerStyle={styles.viewScroll}>
           <View style={styles.viewInfo}>
             <View style={styles.viewInfoDetail}>
               <View style={styles.colTitle}>
-                <Text style={styles.textTitleBold}> Berapa Banyak Bahan Bakarnya ?
+                <Text style={styles.textTitleBold}> 
+                { type == 'subscribe' ? 'Paket yang kamu pilih' : 'Berapa Banyak Bahan Bakarnya' }
                 </Text>
-                <Text style={[styles.text10Grey, {marginTop: 5}]}> Kamu dapat memasukkan harga dalam rupiah atau dalam liter
+                <Text style={[styles.text10Grey, {marginTop: 5}]}>
+                { type == 'subscribe' ?
+                'Dapatkan harga lebih hemat dengan membeli paket bensin' : 
+                'Kamu dapat memasukkan harga dalam rupiah atau dalam liter' }
                 </Text>
               </View>
               <View style={styles.row1}>
-                <View style={styles.col1}>
-                  <Text style={styles.text12}> Harga per-liter ?
+                <View style={[styles.col1, type == 'subscribe' && {paddingBottom: 8}]}>
+                  <Text style={styles.text12}> Harga per-liter
                   </Text>
-                  <Text style={styles.text14}> Pertamax Turbo
+                  <Text style={[styles.text14, type == 'subscribe' && {marginTop: 5}]}>
+                  { type == 'subscribe' ?
+                    'Pertalite (30 Liter)' : 'Pertamax Turbo'}
                   </Text>
                 </View>
                 <Text style={[styles.text12, {fontWeight: 'bold'}]}> Rp. 11.200
                 </Text>
               </View>
-              <View style={styles.row2}>
-                <View style={styles.col1}>
-                  <Text style={styles.text10Grey}> Harga dalam (Rp)
-                  </Text>
-                  <TextInput 
-                    style={[styles.viewInput, {width: 120, height: 40}]} 
-                    onChangeText={(price) => this.setState({price})}
-                    keyboardType={'number-pad'}
-                    value={this.state.price}/>
+              { type != 'subscribe'&&
+                <View style={styles.row2}>
+                  <View style={styles.col1}>
+                    <Text style={styles.text10Grey}> Harga dalam (Rp)
+                    </Text>
+                    <TextInput 
+                      style={[styles.viewInput, {width: 120, height: 40}]} 
+                      onChangeText={(price) => this.setState({price})}
+                      keyboardType={'number-pad'}
+                      value={this.state.price}/>
+                  </View>
+                  <View style={[styles.col1, {marginLeft: 16}]}>
+                    <Text style={styles.text10Grey}> Jumlah dalam (Liter)
+                    </Text>
+                    <TextInput 
+                      style={[styles.viewInput, {width: 40, height: 40}]} 
+                      onChangeText={(count) => this.setState({count})}
+                      keyboardType={'number-pad'}
+                      maxLength={3}
+                      value={this.state.count}/>
+                  </View>
                 </View>
-                <View style={[styles.col1, {marginLeft: 16}]}>
-                  <Text style={styles.text10Grey}> Jumlah dalam (Liter)
-                  </Text>
-                  <TextInput 
-                    style={[styles.viewInput, {width: 40, height: 40}]} 
-                    onChangeText={(count) => this.setState({count})}
-                    keyboardType={'number-pad'}
-                    maxLength={3}
-                    value={this.state.count}/>
-                </View>
-              </View>
+              }
             </View>
             <View style={[styles.viewInfoDetail, {marginTop: 8}]}>
               <View style={styles.row1}>  
@@ -140,7 +151,9 @@ class CartScreen extends Component {
             </View>
           </View>
         </ScrollView>
-        <BottomFacilities />
+        { type != 'subscribe'&&
+          <BottomFacilities />
+        }
       </View>
     )
   }

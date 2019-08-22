@@ -14,7 +14,7 @@ export default class PaketList extends Component {
         <View style={styles.col1}>
           <Text style={[styles.textName, {color: color}]}>{name}</Text>
           <Text style={styles.textVolume}>{volume} Liter</Text>
-          <Text style={styles.textName}>Berlaku {duration} Hari</Text>
+          <Text style={styles.textDate}>Berlaku {duration} Hari</Text>
         </View>
         <View style={styles.col2}>
           <Text style={styles.textOrange}>Rp. {price}</Text>

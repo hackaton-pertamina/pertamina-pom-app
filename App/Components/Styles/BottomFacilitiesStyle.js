@@ -72,7 +72,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 8,
     alignItems: 'center',
-    borderBottomWidth: 0,
+    borderTopWidth: 0,
     elevation: 4
   },
   iconStyle:{

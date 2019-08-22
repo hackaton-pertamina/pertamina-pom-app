@@ -105,10 +105,23 @@ class HomeScreen extends Component {
   }
 
   onPressSpbu = (id) => {
-    // alert(id, 'tes aja');
-    this.props.dispatch(NavigationActions.navigate({ 
-      routeName: 'CartScreen'
-    }));
+    if (!this.state.pressed) {
+      this.setState({pressed: true});
+      this.props.dispatch(NavigationActions.navigate({ 
+        routeName: 'CartScreen',
+        params: {
+          id,
+          type: 'subscribe',
+          clearPress: this.clearStatePress.bind(this),
+        }
+      }));
+      this.clearStatePress();
+    }
+  }
+
+  clearStatePress = () => {
+    // Pembersihan state yang digunakan
+    this.setState({pressed: false});
   }
 
   goService = (id, navigate) => {

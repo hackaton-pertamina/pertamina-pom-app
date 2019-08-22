@@ -9,7 +9,7 @@ export default StyleSheet.create({
     padding: 16,
     borderBottomWidth: 0,
     elevation: 2,
-    borderRadius: 10,
+    borderRadius: 8,
     marginBottom: 16
   },
   viewImg:{
@@ -20,10 +20,11 @@ export default StyleSheet.create({
     flex: 4,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    padding: 5
+    paddingTop: 5,
+    paddingBottom: 5
   },
   col2:{
-    flex: 2.75,
+    flex: 3,
     flexDirection: 'column',
     justifyContent: 'center',
   },
@@ -35,12 +36,15 @@ export default StyleSheet.create({
   },
   textVolume:{
     textAlign: 'left',
-    ...Fonts.style.roboto12,
+    marginTop: 5,
+    ...Fonts.style.roboto14,
     color: Colors.black,
+    fontWeight: '500'
   },
   textDate:{
+    marginTop: 5,
     textAlign: 'left',
-    ...Fonts.style.roboto10,
+    ...Fonts.style.roboto12,
     color: Colors.black,
   },
   textOrange:{
