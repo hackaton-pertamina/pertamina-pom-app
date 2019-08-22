@@ -35,7 +35,9 @@ class MyOrderScreen extends Component {
   }
 
   seeHistory = () => {
-    alert('halo')
+    this.props.dispatch(NavigationActions.navigate({ 
+      routeName: 'HistoryUsageScreen'
+    }));
   }
 
 
@@ -47,7 +49,7 @@ class MyOrderScreen extends Component {
       <View style={styles.container}>
         <BackHeader 
           title={true} 
-          titleText={'Pesananmu'} 
+          titleText={type == 'subscribe' ? 'Berlangganan' : 'Pesananmu '} 
           backPress={this.goBack}/>
         <ScrollView contentContainerStyle={[type != 'subscribe' ? styles.viewScroll : styles.viewScrollDefault]}>
           <View style={styles.viewInfo}>

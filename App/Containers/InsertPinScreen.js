@@ -62,11 +62,12 @@ checkPin = () => {
         <View style={styles.viewMargin}>
           <PinInput
             placeholder={<View style={{
-              width: 15,
-              height: 15,
+              width: 24,
+              height: 24,
               borderRadius: 25,
               opacity: 0.3,
-              backgroundColor: Colors.iconGrey,
+              borderColor: Colors.black,
+              borderWidth: 1
             }}></View>}
             mask={<View style={{
               width: 10,

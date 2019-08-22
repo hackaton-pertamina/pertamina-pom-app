@@ -15,7 +15,7 @@ import styles from './Styles/NavigationStyles'
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
   HistoryUsageScreen: {
-    screen: HistoryTransactionScreen,
+    screen: HistoryUsageScreen,
     navigationOptions: {
       header: null,
   }},

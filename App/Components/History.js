@@ -16,7 +16,7 @@ export default class History extends Component {
           <View style={styles.colBetween}>
             <Text style={styles.textName}>Subscription {packetName}</Text>
             <Text style={styles.textVolume}>{volume} Liter</Text>
-            <Text style={[styles.textDate, {color: Colors.lblGrey}]}>{name}</Text>
+            <Text style={[styles.textDate, {color: Colors.lblGrey}]}>SPBU {name}</Text>
           </View>
           <View style={styles.rowBetween}>
             <View style={styles.colStart}>

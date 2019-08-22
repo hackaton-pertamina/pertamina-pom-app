@@ -28,7 +28,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomColor: Colors.lblGrey,
-    borderBottomWidth:1
+    borderBottomWidth:0.5
   },
   colView:{
     flex: 7,
