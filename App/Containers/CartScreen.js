@@ -15,6 +15,7 @@ import BackHeader from '../Components/BackHeader';
 import ButtonCustom from '../Components/ButtonCustom';
 import BottomFacilities from '../Components/BottomFacilities';
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -38,7 +39,9 @@ class CartScreen extends Component {
   }
 
   buyNow = () => {
-    alert('Bayar sekarang');
+    this.props.dispatch(NavigationActions.navigate({ 
+      routeName: 'InsertPinScreen'
+    }));
   }
 
   render () {
@@ -150,6 +153,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    dispatch
   }
 }
 

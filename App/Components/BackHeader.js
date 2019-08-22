@@ -45,11 +45,11 @@ export default class BackHeader extends Component {
           </View>
         }
         { logo &&
-          <View style={styles.viewLogo}>
-            <Image
-              resizeMode="contain"
-              source={Images.logo}
-              style={styles.imgLogo}/>
+          <View style={styles.colText}>
+              <Image
+                resizeMode="contain"
+                source={Images.logo}
+                style={styles.imgLogo}/>
           </View>
         }
       </View> 

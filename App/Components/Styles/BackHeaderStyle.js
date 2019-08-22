@@ -20,7 +20,9 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     alignSelf: 'center',
     alignItems: 'center',
-    marginLeft: width/5
+    position: 'absolute',
+    right: 0,
+    left: 0,
   },
   textTitle:{
     ...Fonts.style.medium20,

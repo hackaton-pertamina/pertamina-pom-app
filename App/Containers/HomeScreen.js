@@ -192,9 +192,10 @@ class HomeScreen extends Component {
             </Text>
             <View style={styles.viewOption}>
               {
-                listService.map((item) => {
+                listService.map((item, i) => {
                   return (
                     <TouchableOpacity 
+                      key={i}
                       style={styles.viewType} 
                       onPress={() => this.goService(item.id, item.navigate)}>
                       <Image
