@@ -19,6 +19,10 @@ export default StyleSheet.create({
     justifyContent: 'flex-start', 
     height: height/1.1
   },
+  viewScrollDefault:{
+    flexDirection: 'column', 
+    justifyContent: 'flex-start', 
+  },
   viewInfoDetail:{
     backgroundColor: Colors.white,
     flexDirection: 'column',
@@ -52,6 +56,12 @@ export default StyleSheet.create({
   text14:{
     textAlign: 'left',
     ...Fonts.style.roboto14,
+    color: Colors.black,
+    fontWeight: '500'
+  },
+  text16:{
+    textAlign: 'center',
+    ...Fonts.style.roboto16,
     color: Colors.black,
     fontWeight: '500'
   },
@@ -93,4 +103,9 @@ export default StyleSheet.create({
     width: 32,
     alignSelf: 'center'
   },
+  viewMargin:{
+    margin: 16,
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
+  }
 })

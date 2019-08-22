@@ -14,7 +14,8 @@ export default class ButtonCustom extends Component {
               isBorder && styles.borderStyle,
               bgColor && {backgroundColor: bgColor},
               padding && {padding},
-              inStyle && inStyle]}
+              inStyle && inStyle,
+              isBorder && color && {borderColor: color}]}
           onPress={() => onPress()}
         >
         <Text style={[styles.textButton, color && {color}]}>{textMain.toUpperCase()}</Text>

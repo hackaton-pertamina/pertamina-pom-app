@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
-import { NavigationActions } from 'react-navigation';
+import { StackActions, NavigationActions } from 'react-navigation';
 import { Colors, Fonts, Images } from "../Themes";
 import BackHeader from '../Components/BackHeader';
 import PinInput from 'react-native-smooth-pincode-input';
@@ -24,9 +24,22 @@ goBack = () => {
 }
 
 checkPin = () => {
-  this.props.dispatch(NavigationActions.navigate({ 
-    routeName: 'MyOrderScreen'
-  }));
+  const { params } = this.props.navigation.state;
+  const type = params && params.type ? params.type : '';
+    this.props.dispatch(StackActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({
+          routeName: 'HomeScreen'
+        }),
+        NavigationActions.navigate({
+          routeName: 'MyOrderScreen',
+          params: {
+            type
+          }
+        })
+      ]
+    }));
 }
 
 

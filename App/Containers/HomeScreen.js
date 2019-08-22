@@ -97,7 +97,17 @@ class HomeScreen extends Component {
   }
 
   orderNow = () => {
-    alert('Order dong');
+    if (!this.state.pressed) {
+      this.setState({pressed: true});
+      this.props.dispatch(NavigationActions.navigate({ 
+        routeName: 'InsertPinScreen',
+        params: {
+          type: 'subscribe',
+          clearPress: this.clearStatePress.bind(this),
+        }
+      }));
+      this.clearStatePress();
+    }
   }
 
   onPressSpbu = (id) => {
@@ -200,7 +210,7 @@ class HomeScreen extends Component {
           <Subscription 
             onPressSub={this.subscribeNow}
             onPressOrder={this.orderNow} 
-            isSubs={false}
+            isSubs={true}
             saldo={30} 
             typeId={1}
             name={'Pertalite'}
