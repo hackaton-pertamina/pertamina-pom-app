@@ -26,6 +26,7 @@ goBack = () => {
 checkPin = () => {
   const { params } = this.props.navigation.state;
   const type = params && params.type ? params.type : '';
+
     this.props.dispatch(StackActions.reset({
       index: 1,
       actions: [
@@ -35,7 +36,8 @@ checkPin = () => {
         NavigationActions.navigate({
           routeName: 'MyOrderScreen',
           params: {
-            type
+            type,
+            modalVisible: type ==  'buy' ? true : false
           }
         })
       ]

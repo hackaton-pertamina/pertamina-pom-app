@@ -40,7 +40,10 @@ class CartScreen extends Component {
 
   buyNow = () => {
     this.props.dispatch(NavigationActions.navigate({ 
-      routeName: 'InsertPinScreen'
+      routeName: 'InsertPinScreen',
+      params: {
+        type: 'buy'
+      }
     }));
   }
 

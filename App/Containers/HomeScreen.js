@@ -117,7 +117,6 @@ class HomeScreen extends Component {
         routeName: 'CartScreen',
         params: {
           id,
-          type: 'subscribe',
           clearPress: this.clearStatePress.bind(this),
         }
       }));
@@ -217,7 +216,7 @@ class HomeScreen extends Component {
           <Subscription 
             onPressSub={this.subscribeNow}
             onPressOrder={this.orderNow} 
-            isSubs={true}
+            isSubs={false}
             saldo={30} 
             typeId={1}
             name={'Pertalite'}
