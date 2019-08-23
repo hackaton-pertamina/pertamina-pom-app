@@ -1,27 +1,21 @@
-import React, { Component } from 'react'
-import {
-  View,
-  Image,
-  Alert,
-  TouchableOpacity,
-  Text,
-  FlatList,
-  ScrollView,
-  RefreshControl
-} from "react-native";
-import { Colors, Images } from "../Themes";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import React, { Component } from 'react';
+import { FlatList, Image, ScrollView, Text, TouchableOpacity, View, Dimensions } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { connect } from 'react-redux'
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 import InfoSaldo from '../Components/InfoSaldo';
-import Subscription from '../Components/Subscription';
+import ProductList from '../Components/ProductList';
 import SpbuList from '../Components/SpbuList';
+import Subscription from '../Components/Subscription';
+import { Colors, Images } from "../Themes";
+import SlidingUpPanel from 'rn-sliding-up-panel';
+const { width, height } = Dimensions.get('window')
+
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
-
 // Styles
-import styles from './Styles/HomeScreenStyle'
+import styles from './Styles/HomeScreenStyle';
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -32,6 +26,7 @@ class HomeScreen extends Component {
       modalPressed: false,
       modalInfo: false,
       refreshing: false,
+      dataPom: {},
       listNear: [
         {
           id: 1,
@@ -82,7 +77,33 @@ class HomeScreen extends Component {
           name: 'TuneUp Motor',
           image: Images.tuneupMotor
         }
-      ]
+      ],
+      listProduct:[
+        {
+          id: 1,
+          name: 'Premium',
+          price: 7000,
+          color : Colors.yellow
+        },
+        {
+          id: 2,
+          name: 'Pertalite',
+          price: 7650,
+          color : Colors.green
+        },
+        {
+          id: 3,
+          name: 'Pertamax',
+          price: 9850,
+          color : Colors.blue
+        },
+        {
+          id: 4,
+          name: 'Pertamax Turbo',
+          price: 11200,
+          color : Colors.red
+        }
+      ],
     }
   }
 
@@ -110,7 +131,7 @@ class HomeScreen extends Component {
     }
   }
 
-  onPressSpbu = (id) => {
+  onPressProduct = (id) => {
     if (!this.state.pressed) {
       this.setState({pressed: true});
       this.props.dispatch(NavigationActions.navigate({ 
@@ -122,6 +143,16 @@ class HomeScreen extends Component {
       }));
       this.clearStatePress();
     }
+  }
+
+  onPressSpbu = async (item) => {
+      await this.setState({dataPom: item});
+      await this._panel.show()
+  }
+
+  closeBottomSheet = async () => {
+    this._panel.hide()
+    await this.clearStatePress();
   }
 
   seeHistory = () => {
@@ -157,13 +188,93 @@ class HomeScreen extends Component {
       address={item.address}
       isFull={item.is_full}
       isOpen={item.is_open}
-      onPress={() => this.onPressSpbu(item.id)}
+      onPress={() => this.onPressSpbu(item)}
     />);
   }
 
+
+  renderHeader = () => {
+    return (
+      <View style={styles.headerBottom}>
+        <View style={styles.viewHeader}>
+          <Text style={styles.textTitleBold}>
+            Bahan Bakar Yang Tersedia
+          </Text>
+          <Text style={[styles.textSub, {color: Colors.lblGrey}]}>
+            Update Terakhir - Juli 2019
+          </Text>
+        </View>
+        <TouchableOpacity style={styles.viewIcon} onPress={this.hideBottomSheet}>
+          <Icon
+            style={styles.iconStyle}
+            name="close"
+            size={24}
+            color={Colors.iconGrey}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  renderContent = () => {
+    const {listProduct} = this.state;
+    return (
+      <FlatList
+        data={listProduct}
+        style={styles.viewMargin}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => {
+          return (<ProductList
+            name={item.name}
+            price={item.price}
+            color={item.color}
+            onPress={() => this.onPressProduct(item.id)}
+          />);
+        }}
+      />
+    );
+  }
+
+
   render () {
-    const {listNear, listService} = this.state;
+    const {listNear, listService, listProduct} = this.state;
     const photo = '';
+
+    const bottomProductList = 
+      <View style={styles.viewBottom}>
+        <View style={styles.viewRound}/>
+        <View style={styles.headerBottom}>
+          <View style={styles.viewHeader}>
+            <Text style={styles.textTitleBold}>
+              Bahan Bakar Yang Tersedia
+            </Text>
+            <Text style={[styles.textSub, {color: Colors.lblGrey, marginTop: 5}]}>
+              Update Terakhir - Juli 2019
+            </Text>
+          </View>
+          <TouchableOpacity style={styles.viewIcon} onPress={() => this.closeBottomSheet()}>
+            <Icon
+              style={styles.iconStyle}
+              name="close"
+              size={24}
+              color={Colors.iconGrey}
+            />
+          </TouchableOpacity>
+        </View>
+        <FlatList
+          data={listProduct}
+          style={styles.viewMargin}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => {
+            return (<ProductList
+              name={item.name}
+              price={item.price}
+              color={item.color}
+              onPress={() => this.onPressProduct(item.id)}
+            />);
+          }}
+        />
+      </View>
     return (
       <Animatable.View
         animation="zoomInUp"
@@ -277,6 +388,14 @@ class HomeScreen extends Component {
           }
           />
         </ScrollView>
+        <SlidingUpPanel ref={c => this._panel = c} 
+          draggableRange={{top:height/1.5 ,bottom: 0}} 
+          snappingPoints={[600,0]}
+          height={height/1.1}
+          allowMomentum={false}
+          onBackButtonPress={() => true}>
+          {bottomProductList}
+        </SlidingUpPanel>
       </Animatable.View>
     )
   }

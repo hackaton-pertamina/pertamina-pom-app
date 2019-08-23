@@ -132,4 +132,36 @@ export default StyleSheet.create({
     width: 34,
     alignSelf: 'center'
   },
+  viewBottom:{
+    backgroundColor: 'white',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+  },
+  viewRound:{
+    marginTop: 16,
+    width: 40,
+    backgroundColor: '#bdc3c7',
+    borderRadius: 10,
+    alignSelf: 'center',
+    padding: 3
+  },
+  headerBottom:{
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  viewHeader:{
+    backgroundColor: 'white',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    padding: 16,
+    marginTop: 5
+  },
+  viewIcon:{
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: 16,
+  }
 })
