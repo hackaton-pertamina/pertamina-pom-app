@@ -8,7 +8,7 @@ import styles from './Styles/ProductListStyle'
 export default class ProductList extends Component {
 
   render () {
-    const {name, price, color, onPress} = this.props;
+    const {name, price, color, onPress, titleText, inStyle} = this.props;
     return (
       <View style={styles.container}>
       <View style={styles.col1}>
@@ -18,7 +18,7 @@ export default class ProductList extends Component {
         <Text style={styles.text14}>Rp. {price} (/Liter)</Text>
       </View>
       <View style={styles.col3}>
-        <ButtonCustom onPress={onPress} bgColor={Colors.orange} textMain={'Pilih'} padding={12}/>
+        <ButtonCustom onPress={onPress} bgColor={Colors.orange} textMain={titleText} inStyle={inStyle}/>
       </View>
     </View>
     )

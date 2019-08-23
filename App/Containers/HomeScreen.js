@@ -26,6 +26,7 @@ class HomeScreen extends Component {
       modalPressed: false,
       modalInfo: false,
       refreshing: false,
+      type: '',
       dataPom: {},
       listNear: [
         {
@@ -111,10 +112,19 @@ class HomeScreen extends Component {
     alert('top up dong');
   }
 
-  subscribeNow = () => {
+  goPaketList = (item) => {
     this.props.dispatch(NavigationActions.navigate({ 
-      routeName: 'PaketSubscriptionScreen'
+      routeName: 'PaketSubscriptionScreen',
+      params:{
+        item
+      }
     }));
+  }
+
+  subscribeNow = () => {
+    this.setState({type: 'subscribe'}, () => {
+      this._panel.show()
+    }) 
   }
 
   orderNow = () => {
@@ -131,23 +141,29 @@ class HomeScreen extends Component {
     }
   }
 
-  onPressProduct = (id) => {
+  onPressProduct = (item) => {
     if (!this.state.pressed) {
       this.setState({pressed: true});
-      this.props.dispatch(NavigationActions.navigate({ 
-        routeName: 'CartScreen',
-        params: {
-          id,
-          clearPress: this.clearStatePress.bind(this),
-        }
-      }));
+      if(this.state.type == 'subscribe') {
+        this.goPaketList(item);
+      } else {
+        this.props.dispatch(NavigationActions.navigate({ 
+          routeName: 'CartScreen',
+          params: {
+            id : item.id,
+            clearPress: this.clearStatePress.bind(this),
+          }
+        }));
+      }
       this.clearStatePress();
     }
   }
 
-  onPressSpbu = async (item) => {
-      await this.setState({dataPom: item});
-      await this._panel.show()
+  onPressSpbu = (item) => {
+    this.setState({type: 'personal'}, () => {
+      this.setState({dataPom: item});
+      this._panel.show();
+    })
   }
 
   closeBottomSheet = async () => {
@@ -228,7 +244,7 @@ class HomeScreen extends Component {
             name={item.name}
             price={item.price}
             color={item.color}
-            onPress={() => this.onPressProduct(item.id)}
+            onPress={() => this.onPressProduct(item)}
           />);
         }}
       />
@@ -237,7 +253,7 @@ class HomeScreen extends Component {
 
 
   render () {
-    const {listNear, listService, listProduct} = this.state;
+    let {listNear, listService, listProduct, type} = this.state;
     const photo = '';
 
     const bottomProductList = 
@@ -270,6 +286,8 @@ class HomeScreen extends Component {
               name={item.name}
               price={item.price}
               color={item.color}
+              titleText={type == 'subscribe' ? 'Lihat Paket' : 'Pilih'}
+              inStyle={type == 'subscribe' ? {paddingLeft: 5, paddingRight: 5, paddingBottom: 12, paddingTop: 12} : {}}
               onPress={() => this.onPressProduct(item.id)}
             />);
           }}
