@@ -56,13 +56,13 @@ class PaketSubscriptionScreen extends Component {
     this.props.navigation.goBack();
   }
 
-  onPressPaket = (id, screen) => {
+  onPressPaket = (item, screen) => {
     if (!this.state.pressed) {
       this.setState({pressed: true});
       this.props.dispatch(NavigationActions.navigate({ 
         routeName: screen,
         params: {
-          id,
+          item,
           type: 'subscribe',
           clearPress: this.clearStatePress.bind(this),
         }
@@ -84,7 +84,7 @@ class PaketSubscriptionScreen extends Component {
       volume={item.volume}
       duration={item.duration}
       price={item.price}
-      onPress={() => this.onPressPaket(item.id, item.navigate)}
+      onPress={() => this.onPressPaket(item, item.navigate)}
     />);
   }
 

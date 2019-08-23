@@ -7,7 +7,8 @@ import {
   Text,
   FlatList,
   ScrollView,
-  TextInput
+  TextInput,
+  Dimensions
 } from "react-native";
 import { Colors, Images } from "../Themes";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -21,6 +22,7 @@ import { NavigationActions } from 'react-navigation';
 
 // Styles
 import styles from './Styles/CartScreenStyle'
+const { width, height } = Dimensions.get('window')
 
 class CartScreen extends Component {
 
@@ -30,7 +32,8 @@ class CartScreen extends Component {
     this.state = {
       pressed: false,
       price: 0,
-      count: 0
+      count: 0,
+      dateBooking: 'Senin, 20 Agustus 2019, 10:30'
     }
   }
 
@@ -50,12 +53,16 @@ class CartScreen extends Component {
   render () {
     const {params}= this.props.navigation.state;
     const type = params && params.type ? params.type : '';
+    const item = params && params.item ? params.item : '';
+    const title = item && item.name ? item.name : '' ;
+
     return (
       <View style={styles.container}>
         <BackHeader 
-          title={type != 'subscribe'&& true} 
-          subTitle={type == 'subscribe'&& true} 
-          titleText={type == 'subscribe' ? 'Pembeliaanmu' : 'SPBU 31.143.01'} 
+          title={type == 'subscribe' && true} 
+          subTitle={type == 'personal'|| type == 'service' && true} 
+          titleText={type == 'subscribe' ? 'Pembeliaanmu' :
+                     type == 'service' ? title : title} 
           subTitleText={type != 'subscribe'&& 'Jalan Raya Cileduk'}
           backPress={this.goBack}/>
         <ScrollView contentContainerStyle={styles.viewScroll}>
@@ -63,27 +70,33 @@ class CartScreen extends Component {
             <View style={styles.viewInfoDetail}>
               <View style={styles.colTitle}>
                 <Text style={styles.textTitleBold}> 
-                { type == 'subscribe' ? 'Paket yang kamu pilih' : 'Berapa Banyak Bahan Bakarnya' }
+                { type == 'subscribe' ? 'Paket yang kamu pilih' :
+                  type == 'service' ? 'Pilih Waktu Bookingmu' :
+                  'Berapa Banyak Bahan Bakarnya' }
                 </Text>
                 <Text style={[styles.text10Grey, {marginTop: 5}]}>
                 { type == 'subscribe' ?
-                'Dapatkan harga lebih hemat dengan membeli paket bensin' : 
-                'Kamu dapat memasukkan harga dalam rupiah atau dalam liter' }
+                  'Dapatkan harga lebih hemat dengan membeli paket bensin' : 
+                  type == 'service' ?
+                  'Kamu dapat melakukan pembayaran cashless / bayar di tempat' : 
+                  'Kamu dapat memasukkan harga dalam rupiah atau dalam liter' 
+                }
                 </Text>
               </View>
               <View style={styles.row1}>
                 <View style={[styles.col1, type == 'subscribe' && {paddingBottom: 8}]}>
-                  <Text style={styles.text12}> Harga per-liter
+                  <Text style={styles.text12}> 
+                  { type == 'service' ? 'Tipe Service' : 'Harga per-liter' }
                   </Text>
                   <Text style={[styles.text14, type == 'subscribe' && {marginTop: 5}]}>
-                  { type == 'subscribe' ?
-                    'Pertalite (30 Liter)' : 'Pertamax Turbo'}
+                  { type == 'subscribe' ? 'Pertalite (30 Liter)' :
+                    type == 'service' ? 'Ganti Oli + TuneUp' : 'Pertamax Turbo'}
                   </Text>
                 </View>
                 <Text style={[styles.text12, {fontWeight: 'bold'}]}> Rp. 11.200
                 </Text>
               </View>
-              { type != 'subscribe'&&
+              { type == 'personal'&& 
                 <View style={styles.row2}>
                   <View style={styles.col1}>
                     <Text style={styles.text10Grey}> Harga dalam (Rp)
@@ -105,6 +118,17 @@ class CartScreen extends Component {
                       value={this.state.count}/>
                   </View>
                 </View>
+              }
+              { type == 'service' && 
+                  <View style={[styles.col1, {margin: 16}]}>
+                    <Text style={styles.text10Grey}> Waktu Booking
+                    </Text>
+                    <TextInput
+                      editable={false}
+                      style={[styles.viewInput, {width: width/1.6, height: 40}]} 
+                      onChangeText={(dateBooking) => this.setState({dateBooking})}
+                      value={this.state.dateBooking}/>
+                  </View>
               }
             </View>
             <View style={[styles.viewInfoDetail, {marginTop: 8}]}>

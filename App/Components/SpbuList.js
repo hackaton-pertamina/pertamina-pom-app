@@ -7,13 +7,20 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 export default class SpbuList extends Component {
   
   render () {
-    const {name, duration, distance, address, isOpen, isFull, onPress} = this.props;
+    const {name, duration, distance, address, isOpen, isFull, onPress, type} = this.props;
     return (
       <TouchableOpacity style={styles.container} onPress={onPress}>
         <View style={styles.viewImg}>
         </View>
         <View style={styles.rowView}>
           <View style={styles.colView}>
+          { type == 'service' ?
+            <View style={styles.rowTitle}>
+              <Text style={styles.textTitleBlack}>
+                {name}
+              </Text>
+            </View>
+          :
             <View style={styles.rowTitle}>
               <Text style={styles.textTitleBlack}>
                 {name}
@@ -28,27 +35,30 @@ export default class SpbuList extends Component {
                 +/- {duration} Menit
               </Text>
             </View>
+          }
             <Text numberOfLines={2} ellipsizeMode="tail" style={styles.text10Info}>
                 {address}
             </Text>
-            <View style={[styles.rowTitle, {flex: 7}]}>
-              <Text style={[styles.text8, !isOpen ? 
-                          {color : Colors.lblGrey, fontSize: 8} : {color: Colors.yellow}]}>
-                Premium
-              </Text>
-              <Text style={[styles.text8, !isOpen ? 
-                          styles.customText : {color: Colors.green, marginLeft: 8}]}>
-                Pertalite
-              </Text>
-              <Text style={[styles.text8, !isOpen ? 
-                          styles.customText : {color: Colors.blue, marginLeft: 8}]}>
-                Pertamax
-              </Text>
-              <Text style={[styles.text8, !isOpen ? 
-                          styles.customText : {color: Colors.red, marginLeft: 8}]}>
-                Pertamax Turbo
-              </Text>
-            </View>
+            { type != 'service' &&
+              <View style={[styles.rowTitle, {flex: 7}]}>
+                <Text style={[styles.text8, !isOpen ? 
+                            {color : Colors.lblGrey, fontSize: 8} : {color: Colors.yellow}]}>
+                  Premium
+                </Text>
+                <Text style={[styles.text8, !isOpen ? 
+                            styles.customText : {color: Colors.green, marginLeft: 8}]}>
+                  Pertalite
+                </Text>
+                <Text style={[styles.text8, !isOpen ? 
+                            styles.customText : {color: Colors.blue, marginLeft: 8}]}>
+                  Pertamax
+                </Text>
+                <Text style={[styles.text8, !isOpen ? 
+                            styles.customText : {color: Colors.red, marginLeft: 8}]}>
+                  Pertamax Turbo
+                </Text>
+              </View>
+            }
           </View>
           <View style={styles.colView2}>
             <View style={styles.rowTitle}>
@@ -62,7 +72,7 @@ export default class SpbuList extends Component {
                 {distance} Km
               </Text>
             </View>
-            { isFull || !isOpen &&
+            { isFull || isOpen != null &&
               <View style={styles.rowTitle}>
                 <Icon
                   style={styles.iconStyle}

@@ -43,14 +43,14 @@ class PaketServiceScreen extends Component {
     this.props.navigation.goBack();
   }
 
-  onPressPaket = (id, screen) => {
+  onPressPaket = (item, screen) => {
     if (!this.state.pressed) {
       this.setState({pressed: true});
       this.props.dispatch(NavigationActions.navigate({ 
         routeName: screen,
         params: {
-          id,
-          type: 'subscribe',
+          item,
+          type: 'service',
           clearPress: this.clearStatePress.bind(this),
         }
       }));
@@ -70,7 +70,7 @@ class PaketServiceScreen extends Component {
       description={item.description}
       price={item.price}
       type={'service'}
-      onPress={() => this.onPressPaket(item.id, item.navigate)}
+      onPress={() => this.onPressPaket(item, item.navigate)}
     />);
   }
 
@@ -81,8 +81,9 @@ class PaketServiceScreen extends Component {
     return (
       <View style={styles.container}>
         <BackHeader 
-          title={true} 
-          titleText={titleName} 
+          subTitle={true} 
+          titleText={titleName}
+          subTitleText={'Jalan Raya Cileduk'}
           backPress={this.goBack}/>
         <ScrollView contentContainerStyle={styles.viewScroll}>
           <FlatList

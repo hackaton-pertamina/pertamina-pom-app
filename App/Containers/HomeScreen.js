@@ -150,12 +150,13 @@ class HomeScreen extends Component {
         this.props.dispatch(NavigationActions.navigate({ 
           routeName: 'CartScreen',
           params: {
-            id : item.id,
+            item,
+            type: 'personal',
             clearPress: this.clearStatePress.bind(this),
           }
         }));
       }
-      this.clearStatePress();
+      this.closeBottomSheet();
     }
   }
 
@@ -186,7 +187,7 @@ class HomeScreen extends Component {
     if (!this.state.pressed) {
       this.setState({pressed: true});
       this.props.dispatch(NavigationActions.navigate({ 
-        routeName: 'PaketServiceScreen',
+        routeName: 'ServiceLocationScreen',
         params: {
           id,
           name,
@@ -207,50 +208,6 @@ class HomeScreen extends Component {
       onPress={() => this.onPressSpbu(item)}
     />);
   }
-
-
-  renderHeader = () => {
-    return (
-      <View style={styles.headerBottom}>
-        <View style={styles.viewHeader}>
-          <Text style={styles.textTitleBold}>
-            Bahan Bakar Yang Tersedia
-          </Text>
-          <Text style={[styles.textSub, {color: Colors.lblGrey}]}>
-            Update Terakhir - Juli 2019
-          </Text>
-        </View>
-        <TouchableOpacity style={styles.viewIcon} onPress={this.hideBottomSheet}>
-          <Icon
-            style={styles.iconStyle}
-            name="close"
-            size={24}
-            color={Colors.iconGrey}
-          />
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  renderContent = () => {
-    const {listProduct} = this.state;
-    return (
-      <FlatList
-        data={listProduct}
-        style={styles.viewMargin}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => {
-          return (<ProductList
-            name={item.name}
-            price={item.price}
-            color={item.color}
-            onPress={() => this.onPressProduct(item)}
-          />);
-        }}
-      />
-    );
-  }
-
 
   render () {
     let {listNear, listService, listProduct, type} = this.state;
@@ -288,7 +245,7 @@ class HomeScreen extends Component {
               color={item.color}
               titleText={type == 'subscribe' ? 'Lihat Paket' : 'Pilih'}
               inStyle={type == 'subscribe' ? {paddingLeft: 5, paddingRight: 5, paddingBottom: 12, paddingTop: 12} : {}}
-              onPress={() => this.onPressProduct(item.id)}
+              onPress={() => this.onPressProduct(item)}
             />);
           }}
         />

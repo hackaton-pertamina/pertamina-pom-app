@@ -1,4 +1,5 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import ServiceLocationScreen from '../Containers/ServiceLocationScreen'
 import HistoryUsageScreen from '../Containers/HistoryUsageScreen'
 import HistoryTransactionScreen from '../Containers/HistoryTransactionScreen'
 import PaketServiceScreen from '../Containers/PaketServiceScreen'
@@ -14,6 +15,11 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  ServiceLocationScreen: { 
+    screen: ServiceLocationScreen,
+    navigationOptions: {
+      header: null,
+  }},
   HistoryUsageScreen: {
     screen: HistoryUsageScreen,
     navigationOptions: {
