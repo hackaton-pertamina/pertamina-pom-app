@@ -40,6 +40,13 @@ class LoginScreen extends Component {
   render () {
     return (
       <View style={styles.container}>
+        <View style={styles.viewImage}>
+          <Image
+            resizeMode="contain"
+            source={Images.letsgas}
+            style={styles.imgLogo}
+          />
+        </View>
         <View style={styles.viewMargin}>
           <View style={styles.viewImage}>
             <Image
@@ -49,8 +56,8 @@ class LoginScreen extends Component {
             />
           </View>
         </View>
-        <View style={styles.viewCol}>
-          <Text style={styles.text16}> Selamat Datang di Lets Gas !
+        <View style={[styles.viewCol, {marginTop: 8}]}>
+          <Text style={styles.text16}> Selamat Datang di LetsGas !
           </Text>
           <Text style={styles.text14}> Memudahkan merawat kendaraanmu bersama pertamina
           </Text>
@@ -71,7 +78,7 @@ class LoginScreen extends Component {
               bgColor={Colors.orange}/>
           </View>
         </View>
-        <View style={styles.viewMargin}>
+        <View style={[styles.viewMargin, {marginTop: 10}]}>
           <ButtonCustom
             isBorder={true}
             onPress={this.goLogin} 
@@ -79,7 +86,7 @@ class LoginScreen extends Component {
             padding={12} 
             color={Colors.orange}/>
         </View>
-        <View style={styles.viewMargin}>
+        <View style={[styles.viewMargin, {marginTop: 10}]}>
           <Text style={styles.text10}>Dengan masuk atau mendaftar, kamu menyetujui Ketentuan Layanan dan Kebijakan Privasi
           </Text>
         </View>

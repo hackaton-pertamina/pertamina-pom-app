@@ -77,6 +77,12 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'column',
   },
+  col2:{
+    justifyContent: 'center',
+    flexDirection: 'column',
+    padding: 16,
+    alignItems: 'center'
+  },
   row2:{
     flexDirection: 'row',
     justifyContent: 'flex-start',

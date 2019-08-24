@@ -5,7 +5,8 @@ const { width, height } = Dimensions.get('window')
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   viewMargin:{
-    margin: 16,
+    marginLeft: 16,
+    marginRight: 16,
     flexDirection: 'column',
     justifyContent: 'flex-start',
   },
@@ -21,14 +22,17 @@ export default StyleSheet.create({
     padding: 16,
   },
   viewRow:{
-    margin: 8,
+    marginLeft: 16,
+    marginRight: 16,
+    marginTop: 5,
+    marginBottom: 8,
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
   view2Button:{
     flex: 4,
     paddingLeft: 10,
-    paddingRight: 10,
+    paddingRight: 8,
     flexDirection: 'column',
     justifyContent: 'center'
   },
@@ -50,8 +54,13 @@ export default StyleSheet.create({
     color: Colors.black,
   },
   imgContainer:{
-    height: height/3,
+    height: height/3.5,
     width: width/3,
+    alignSelf: 'center'
+  },
+  imgLogo:{
+    height: 70,
+    width: 200,
     alignSelf: 'center'
   }
 })

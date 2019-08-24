@@ -9,6 +9,7 @@ const images = {
   tuneupMotor: require('../Images/ic_tuneup_motor.png'),
   error: require('../Images/no_connection.png'),
   subscribe: require('../Images/subscribe.png'),
+  letsgas: require('../Images/letsgas.png'),
 }
 
 export default images

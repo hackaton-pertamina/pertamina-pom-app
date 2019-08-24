@@ -13,6 +13,7 @@ import BackHeader from '../Components/BackHeader';
 import ButtonCustom from '../Components/ButtonCustom';
 import BottomFacilities from '../Components/BottomFacilities';
 import ModalSuccess from '../Components/ModalSuccess';
+import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation';
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -51,7 +52,7 @@ class MyOrderScreen extends Component {
   render () {
     const { params } = this.props.navigation.state;
     const type = params && params.type ? params.type : '';
-
+    const valueQrcode = 'http://facebook.github.io/react-native/'
     return (
       <View style={styles.container}>
         <BackHeader 
@@ -133,6 +134,13 @@ class MyOrderScreen extends Component {
                 <Text style={styles.textTitleBold}> Scan Barcodemu Untuk Mengisi Bensin
                 </Text>
               </View>
+              <View style={styles.col2}>
+                <QRCode
+                  value={valueQrcode}
+                  size={100}
+                  bgColor={Colors.black}
+                  fgColor='white'/>
+                </View>
             </View>
           </View>
           </ScrollView>
