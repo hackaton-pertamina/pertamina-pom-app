@@ -7,7 +7,7 @@ export const reducers = combineReducers({
   nav: require('./NavigationRedux').reducer,
   login: require('./LoginRedux').reducer,
   facility: require('./GetFacilitiesRedux').reducer,
-  product: require('./LoginRedux').reducer,
+  product: require('./GetProductRedux').reducer,
   packet: require('./GetPacketRedux').reducer,
   stations: require('./GetStationsRedux').reducer,
   order: require('./OrderRedux').reducer,

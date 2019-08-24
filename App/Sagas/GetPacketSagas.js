@@ -14,19 +14,36 @@ import { call, put } from 'redux-saga/effects'
 import GetPacketActions from '../Redux/GetPacketRedux'
 // import { GetPacketSelectors } from '../Redux/GetPacketRedux'
 
-export function * getGetPacket (api, action) {
-  const { data } = action
+export function * getPacketById (api, action) {
+  const { id } = action
   // get current data from Store
-  // const currentData = yield select(GetPacketSelectors.getData)
+  // const currentData = yield select(GetStationsSelectors.getData)
   // make the call to the api
-  const response = yield call(api.getgetPacket, data)
+  const response = yield call(api.getStationById, id)
 
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(GetPacketActions.getPacketSuccess(response.data))
+    yield put(GetPacketActions.getPacketByIdSuccess(response.data.data))
   } else {
-    yield put(GetPacketActions.getPacketFailure())
+    yield put(GetPacketActions.getPacketByIdFailure())
   }
 }
+
+export function * getPacketAll (api) {
+  // get current data from Store
+  // const currentData = yield select(GetStationsSelectors.getData)
+  // make the call to the api
+  const response = yield call(api.getPacketList)
+
+  // success?
+  if (response.ok) {
+    // You might need to change the response here - do this with a 'transform',
+    // located in ../Transforms/. Otherwise, just pass the data back from the api.
+    yield put(GetPacketActions.getPacketAllSuccess(response.data.data))
+  } else {
+    yield put(GetPacketActions.getPacketAllFailure())
+  }
+}
+

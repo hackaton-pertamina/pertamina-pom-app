@@ -4,6 +4,7 @@ const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
+  ...ApplicationStyles.loading,
   rowHeader:{
     flexDirection: 'row',
     width: width,
@@ -85,6 +86,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding: 5
+  },
+  colEmpty:{
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    padding: 16,
+    marginTop: 16
   },
   text10:{
     textAlign: 'right',

@@ -14,19 +14,52 @@ import { call, put } from 'redux-saga/effects'
 import GetStationsActions from '../Redux/GetStationsRedux'
 // import { GetStationsSelectors } from '../Redux/GetStationsRedux'
 
-export function * getGetStations (api, action) {
-  const { data } = action
+export function * getStationById (api, action) {
+  const { id } = action
   // get current data from Store
   // const currentData = yield select(GetStationsSelectors.getData)
   // make the call to the api
-  const response = yield call(api.getgetStations, data)
+  const response = yield call(api.getStationById, id)
 
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(GetStationsActions.getStationsSuccess(response.data))
+    yield put(GetStationsActions.getStationsByIdSuccess(response.data.data))
   } else {
-    yield put(GetStationsActions.getStationsFailure())
+    yield put(GetStationsActions.getStationsByIdFailure())
+  }
+}
+
+export function * getStationByType (api, {data, tipe}) {
+  
+  // get current data from Store
+  // const currentData = yield select(GetStationsSelectors.getData)
+  // make the call to the api
+  const response = yield call(api.getStationByType, data, tipe)
+
+  // success?
+  if (response.ok) {
+    // You might need to change the response here - do this with a 'transform',
+    // located in ../Transforms/. Otherwise, just pass the data back from the api.
+    yield put(GetStationsActions.getStationsByTypeSuccess(response.data.data))
+  } else {
+    yield put(GetStationsActions.getStationsByTypeFailure())
+  }
+}
+
+export function * getStationAll (api) {
+  // get current data from Store
+  // const currentData = yield select(GetStationsSelectors.getData)
+  // make the call to the api
+  const response = yield call(api.getStationById)
+
+  // success?
+  if (response.ok) {
+    // You might need to change the response here - do this with a 'transform',
+    // located in ../Transforms/. Otherwise, just pass the data back from the api.
+    yield put(GetStationsActions.getStationsAllSuccess(response.data.data))
+  } else {
+    yield put(GetStationsActions.getStationsAllFailure())
   }
 }

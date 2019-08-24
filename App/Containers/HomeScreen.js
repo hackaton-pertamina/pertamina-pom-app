@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { FlatList, Image, ScrollView, Text, TouchableOpacity, View, Dimensions, ToastAndroid } from "react-native";
+import { FlatList, Image, ScrollView, Text, TouchableOpacity, View, Dimensions, ToastAndroid, ActivityIndicator } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
+import GetNearAction from '../Redux/GetStationsRedux';
+import GetPacketAction from '../Redux/GetPacketRedux';
+import GetProductAction from '../Redux/GetProductRedux';
 import InfoSaldo from '../Components/InfoSaldo';
 import ProductList from '../Components/ProductList';
 import SpbuList from '../Components/SpbuList';
@@ -21,6 +24,7 @@ import {
 // Styles
 import styles from './Styles/HomeScreenStyle';
 
+const dataLocation = {lat: -6.1863762, long: 106.8234382}
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -125,6 +129,15 @@ class HomeScreen extends Component {
 
   componentDidMount() {
     this.startup();
+    this.getAddress(dataLocation.lat, dataLocation.long);
+    const data = {
+      lat: dataLocation.lat,
+      lng: dataLocation.long
+    };
+    this.props.dispatch(GetNearAction.getStationsRequestByType(data, 'GAS_STATION')); 
+    this.props.dispatch(GetPacketAction.getPacketRequestAll());  
+    this.props.dispatch(GetProductAction.getProductRequestByType('PETROL'));  
+    // this.props.dispatch(GetProductAction.getStationsRequestByType());    
   }
 
   checkLocationStatus = async () => {
@@ -134,7 +147,7 @@ class HomeScreen extends Component {
 
       if (locationPermissionEnabled) {
         await showLocationServiceDialog();
-        await this.getCurrentPosition();
+        // await this.getCurrentPosition();
       } 
     } catch (error) {
       console.log(error)
@@ -163,11 +176,10 @@ class HomeScreen extends Component {
 
   getAddress = (lat, long) => {
     // Get address from latidude & longitude.
-    Geocode.fromLatLng(lat, longitude).then(
+    Geocode.fromLatLng(lat, long).then(
       response => {
         const address = response.results[0].formatted_address;
-        console.log(address);
-        this.setState({address})
+        this.setState({address});
       },
       error => {
         console.log(error);
@@ -267,20 +279,23 @@ class HomeScreen extends Component {
   renderItem = (item) =>{
     return (<SpbuList
       name={item.name}
-      duration={item.wait_duration_minutes.toFixed(0)}
-      distance={item.distance}
+      duration={15.44.toFixed(0)}
+      distance={item.distance.toFixed(2)}
       address={item.address}
-      isFull={item.is_full}
+      isFull={false}
       isOpen={item.is_open}
+      productList={item.products}
       onPress={() => this.onPressSpbu(item)}
     />);
   }
 
   render () {
     let {listNear, listService, listProduct, type, address} = this.state;
-    const {profile} = this.props;
+    const {profile, fetchingNear, dataNear, dataPacket, dataProduct} = this.props;
     const photo = profile && profile.avatar || '';
     const saldo = profile && profile.link_aja_balance || '';
+    const packetList = dataPacket && dataPacket || '';
+    const productList = dataProduct && dataProduct || '';
 
     const bottomProductList = 
       <View style={styles.viewBottom}>
@@ -304,16 +319,16 @@ class HomeScreen extends Component {
           </TouchableOpacity>
         </View>
         <FlatList
-          data={listProduct}
+          data={productList}
           style={styles.viewMargin}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
             return (<ProductList
               name={item.name}
               price={item.price}
-              color={item.color}
-              titleText={type == 'subscribe' ? 'Lihat Paket' : 'Pilih'}
-              inStyle={type == 'subscribe' ? {paddingLeft: 5, paddingRight: 5, paddingBottom: 12, paddingTop: 12} : {}}
+              color={item.attributes && item.attributes.color || ''}
+              titleText={'Pilih'}
+              // inStyle={type != 'PETROL' ? {paddingLeft: 5, paddingRight: 5, paddingBottom: 12, paddingTop: 12} : {}}
               onPress={() => this.onPressProduct(item)}
             />);
           }}
@@ -420,17 +435,29 @@ class HomeScreen extends Component {
               />
             </View>
           </View>
-          <FlatList
-            data={listNear}
-            style={styles.viewMargin}
-            keyExtractor={(item, index) => index.toString()}
-            // onRefresh={() => this.onRefresh()}
-            // refreshing={refreshing}
-            renderItem={({ item }) => {
-              return this.renderItem(item)
-            }
-          }
-          />
+        {
+            (fetchingNear) ?
+              <View style={styles.loading}>
+                <ActivityIndicator size='large' color={Colors.orange} />
+              </View>
+        :
+          (dataNear != null) ?
+            <FlatList
+              data={dataNear}
+              style={styles.viewMargin}
+              keyExtractor={(item, index) => index.toString()}
+              // onRefresh={() => this.onRefresh()}
+              // refreshing={refreshing}
+              renderItem={({ item }) => {
+                return this.renderItem(item)
+              }
+            }/>
+          : <View style={styles.colEmpty}>
+              <Text style={[styles.textTitleBold, {color: Colors.lblGrey}]}>
+                Tidak Ada Pom Terdekat
+              </Text>
+            </View>
+        }
         </ScrollView>
         <SlidingUpPanel ref={c => this._panel = c} 
           draggableRange={{top:height/1.5 ,bottom: 0}} 
@@ -448,6 +475,10 @@ class HomeScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     profile: state.profile.data,
+    dataNear: state.stations.dataByType.data,
+    fetchingNear: state.stations.dataByType.fetching,
+    dataPacket: state.packet.dataAll.data,
+    dataProduct: state.product.dataByType.data,
   }
 }
 

@@ -36,9 +36,8 @@ class RootContainer extends Component {
   getValue = async variable => await AsyncStorage.getItem(variable);
 
   startup = async () => {
-    const value = await this.getValue("isLogin");
     const token = await this.getValue("token");
-    
+
     AsyncStorage.getItem("token").then( () => {
       this.props.dispatch(LoginAction.existingLogin(token, 'HomeScreen'));
     })
