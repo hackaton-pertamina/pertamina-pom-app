@@ -33,6 +33,7 @@ class CartScreen extends Component {
       pressed: false,
       price: 0,
       count: 0,
+      totalPrice: 0,
       dateBooking: 'Senin, 20 Agustus 2019, 10:30'
     }
   }
@@ -42,20 +43,52 @@ class CartScreen extends Component {
   }
 
   buyNow = () => {
+    const {
+      params: {
+        item = '',
+        dataPom = '',
+      }
+    } = this.props.navigation.state;
     this.props.dispatch(NavigationActions.navigate({ 
       routeName: 'InsertPinScreen',
       params: {
-        type: 'buy'
+        type: 'buy',
+        quantity: this.state.count,
+        productId: item.id,
+        pomId: dataPom.id,  
       }
     }));
   }
+
+  onChangePrice = async (value) => {
+    const intValue = parseInt(value) || 0;
+    const {params}= this.props.navigation.state;
+    const item = params && params.item ? params.item : '';
+    const price = item && item.price || 0;
+
+    let updatePrice = 0;
+
+    this.setState({ count: intValue });
+    updatePrice = await price * intValue;
+    await this.setState({price: updatePrice});
+    await this.setState({totalPrice: (updatePrice + 1500) });
+  }
+
+
 
   render () {
     const {params}= this.props.navigation.state;
     const type = params && params.type ? params.type : '';
     const item = params && params.item ? params.item : '';
-    const title = item && item.name ? item.name : '' ;
-
+    const dataPom = params && params.dataPom ? params.dataPom : '';
+    const title = dataPom && dataPom.name ? dataPom.name : '' ;
+    const subTitle = dataPom && dataPom.name ? 
+      dataPom.address && dataPom.address.length > 30
+        ? `${dataPom.address.substring(0, 29)} ...` 
+        : dataPom.address
+      : '' ;
+    let {price, totalPrice, count, dateBooking} = this.state;
+    console.log("price", price, params.item.price, params.item)
     return (
       <View style={styles.container}>
         <BackHeader 
@@ -63,7 +96,7 @@ class CartScreen extends Component {
           subTitle={type == 'personal'|| type == 'service' && true} 
           titleText={type == 'subscribe' ? 'Pembeliaanmu' :
                      type == 'service' ? title : title} 
-          subTitleText={type != 'subscribe'&& 'Jalan Raya Cileduk'}
+          subTitleText={type != 'subscribe'&& subTitle}
           backPress={this.goBack}/>
         <ScrollView contentContainerStyle={styles.viewScroll}>
           <View style={styles.viewInfo}>
@@ -90,10 +123,10 @@ class CartScreen extends Component {
                   </Text>
                   <Text style={[styles.text14, type == 'subscribe' && {marginTop: 5}]}>
                   { type == 'subscribe' ? 'Pertalite (30 Liter)' :
-                    type == 'service' ? 'Ganti Oli + TuneUp' : 'Pertamax Turbo'}
+                    type == 'service' ? 'Ganti Oli + TuneUp' : item.name}
                   </Text>
                 </View>
-                <Text style={[styles.text12, {fontWeight: 'bold'}]}> Rp. 11.200
+                <Text style={[styles.text12, {fontWeight: 'bold'}]}> Rp. {item.price}
                 </Text>
               </View>
               { type == 'personal'&& 
@@ -101,21 +134,21 @@ class CartScreen extends Component {
                   <View style={styles.col1}>
                     <Text style={styles.text10Grey}> Harga dalam (Rp)
                     </Text>
-                    <TextInput 
+                    <TextInput
+                      editable={false}
                       style={[styles.viewInput, {width: 120, height: 40}]} 
-                      onChangeText={(price) => this.setState({price})}
                       keyboardType={'number-pad'}
-                      value={this.state.price}/>
+                      value={`${item.price}` || `${price}` || 0}/>
                   </View>
                   <View style={[styles.col1, {marginLeft: 16}]}>
                     <Text style={styles.text10Grey}> Jumlah dalam (Liter)
                     </Text>
                     <TextInput 
                       style={[styles.viewInput, {width: 40, height: 40}]} 
-                      onChangeText={(count) => this.setState({count})}
+                      onChangeText={(count) => { this.onChangePrice(count) }}
                       keyboardType={'number-pad'}
                       maxLength={3}
-                      value={this.state.count}/>
+                      value={`${count}`}/>
                   </View>
                 </View>
               }
@@ -127,7 +160,7 @@ class CartScreen extends Component {
                       editable={false}
                       style={[styles.viewInput, {width: width/1.6, height: 40}]} 
                       onChangeText={(dateBooking) => this.setState({dateBooking})}
-                      value={this.state.dateBooking}/>
+                      value={dateBooking}/>
                   </View>
               }
             </View>
@@ -157,15 +190,15 @@ class CartScreen extends Component {
               </View>
               <View style={[styles.row1, {borderBottomColor: Colors.lblGrey, borderBottomWidth: 0.5}]}> 
                 <Text style={[styles.text12, {fontWeight: 'bold'}]}>
-                  Pertamax Turbo | 2 Liter
+                  {item.name} | {count} Liter
                 </Text>
-                <Text style={[styles.text12, {fontWeight: '500'}]}> Rp. 22.400
+                <Text style={[styles.text12, {fontWeight: '500'}]}> Rp. {price}
                 </Text>
               </View>
               <View style={styles.row1}> 
                 <Text style={[styles.text12, {fontWeight: 'bold'}]}> Total Pembayaran
                 </Text>
-                <Text style={[styles.text12, {fontWeight: 'bold'}]}> Rp. 23.900
+                <Text style={[styles.text12, {fontWeight: 'bold'}]}> Rp. {totalPrice}
                 </Text>
               </View>
               <View style={styles.viewPadding}>

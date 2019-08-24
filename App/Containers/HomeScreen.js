@@ -230,6 +230,7 @@ class HomeScreen extends Component {
           routeName: 'CartScreen',
           params: {
             item,
+            dataPom: this.state.dataPom,
             type: 'personal',
             clearPress: this.clearStatePress.bind(this),
           }
@@ -327,6 +328,7 @@ class HomeScreen extends Component {
               name={item.name}
               price={item.price}
               color={item.attributes && item.attributes.color || ''}
+              productList={item.products}
               titleText={'Pilih'}
               // inStyle={type != 'PETROL' ? {paddingLeft: 5, paddingRight: 5, paddingBottom: 12, paddingTop: 12} : {}}
               onPress={() => this.onPressProduct(item)}

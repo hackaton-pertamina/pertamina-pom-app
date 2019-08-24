@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 export default class SpbuList extends Component {
   
   render () {
-    const {name, duration, distance, address, isOpen, isFull, onPress, type} = this.props;
+    const {name, duration, distance, address, isOpen, isFull, onPress, productList, type} = this.props;
     return (
       <TouchableOpacity style={styles.container} onPress={onPress}>
         <View style={styles.viewImg}>
@@ -39,26 +39,19 @@ export default class SpbuList extends Component {
             <Text numberOfLines={2} ellipsizeMode="tail" style={styles.text10Info}>
                 {address}
             </Text>
+            <View style={[styles.rowTitle, {flex: 7}]}>
             { type != 'service' &&
-              <View style={[styles.rowTitle, {flex: 7}]}>
-                <Text style={[styles.text8, !isOpen ? 
-                            {color : Colors.lblGrey, fontSize: 8} : {color: Colors.yellow}]}>
-                  Premium
-                </Text>
-                <Text style={[styles.text8, !isOpen ? 
-                            styles.customText : {color: Colors.green, marginLeft: 8}]}>
-                  Pertalite
-                </Text>
-                <Text style={[styles.text8, !isOpen ? 
-                            styles.customText : {color: Colors.blue, marginLeft: 8}]}>
-                  Pertamax
-                </Text>
-                <Text style={[styles.text8, !isOpen ? 
-                            styles.customText : {color: Colors.red, marginLeft: 8}]}>
-                  Pertamax Turbo
-                </Text>
-              </View>
+              productList.map((item, i) => {
+                console.log('ini item :', item)
+                return (
+                    <Text key={i}  numberOfLines={2} ellipsizeMode="tail" style={[styles.text8, !isOpen && i != 0  ? styles.customText :
+                                  {color : Colors.lblGrey, fontSize: 8}]}>
+                      {item.name}
+                    </Text>
+                )
+              })
             }
+            </View>
           </View>
           <View style={styles.colView2}>
             <View style={styles.rowTitle}>
