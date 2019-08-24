@@ -12,20 +12,45 @@
 
 import { call, put } from 'redux-saga/effects'
 import OrderActions from '../Redux/OrderRedux'
+import { StackActions, NavigationActions } from 'react-navigation';
 // import { OrderSelectors } from '../Redux/OrderRedux'
 
-export function * getOrder (api, action) {
-  const { data } = action
+export function * postOrder (api, {station, tipe, product, quantity}) {
+  const body = {
+    station, 
+    type: tipe, 
+    product, 
+    quantity
+  }
+
   // get current data from Store
   // const currentData = yield select(OrderSelectors.getData)
   // make the call to the api
-  const response = yield call(api.getorder, data)
+  const response = yield call(api.postOrder, body)
 
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(OrderActions.orderSuccess(response.data))
+    yield put(OrderActions.orderSuccess(response.data.data))
+    yield put(
+      StackActions.reset({
+        index: 1,
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'HomeScreen'
+          }),
+          NavigationActions.navigate({
+            routeName: 'MyOrderScreen',
+            params: {
+              type: 'personal',
+              modalVisible: true
+            }
+          })
+        ]
+      })
+    );
+
   } else {
     yield put(OrderActions.orderFailure())
   }

@@ -42,7 +42,6 @@ export default class SpbuList extends Component {
             <View style={[styles.rowTitle, {flex: 7}]}>
             { type != 'service' &&
               productList.map((item, i) => {
-                console.log('ini item :', item)
                 return (
                     <Text key={i}  numberOfLines={2} ellipsizeMode="tail" style={[styles.text8, !isOpen && i != 0  ? styles.customText :
                                   {color : Colors.lblGrey, fontSize: 8}]}>

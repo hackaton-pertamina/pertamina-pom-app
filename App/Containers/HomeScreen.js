@@ -180,6 +180,7 @@ class HomeScreen extends Component {
       response => {
         const address = response.results[0].formatted_address;
         this.setState({address});
+        return address;
       },
       error => {
         console.log(error);
@@ -200,8 +201,8 @@ class HomeScreen extends Component {
     }));
   }
 
-  subscribeNow = () => {
-    this.setState({type: 'subscribe'}, () => {
+  subscribeNow = async () => {
+    await this.setState({type: 'subscribe'}, () => {
       this._panel.show()
     }) 
   }
@@ -328,7 +329,6 @@ class HomeScreen extends Component {
               name={item.name}
               price={item.price}
               color={item.attributes && item.attributes.color || ''}
-              productList={item.products}
               titleText={'Pilih'}
               // inStyle={type != 'PETROL' ? {paddingLeft: 5, paddingRight: 5, paddingBottom: 12, paddingTop: 12} : {}}
               onPress={() => this.onPressProduct(item)}
@@ -388,7 +388,7 @@ class HomeScreen extends Component {
           <Subscription 
             onPressSub={this.subscribeNow}
             onPressOrder={this.orderNow} 
-            isSubs={false}
+            isSubs={true}
             saldo={30} 
             typeId={1}
             name={'Pertalite'}

@@ -4,8 +4,8 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  orderRequest: ['data'],
-  orderSuccess: ['payload'],
+  orderRequest: ['station', 'tipe', 'product', 'quantity'],
+  orderSuccess: ['data'],
   orderFailure: null
 })
 
@@ -17,7 +17,6 @@ export default Creators
 export const INITIAL_STATE = Immutable({
   data: null,
   fetching: null,
-  payload: null,
   error: null
 })
 
@@ -31,17 +30,17 @@ export const OrderSelectors = {
 
 // request the data from an api
 export const request = (state, { data }) =>
-  state.merge({ fetching: true, data, payload: null })
+  state.merge({ fetching: true })
 
 // successful api lookup
 export const success = (state, action) => {
-  const { payload } = action
-  return state.merge({ fetching: false, error: null, payload })
+  const { data } = action
+  return state.merge({ fetching: false, error: null, data })
 }
 
 // Something went wrong somewhere.
 export const failure = state =>
-  state.merge({ fetching: false, error: true, payload: null })
+  state.merge({ fetching: false, error: true, data: null })
 
 /* ------------- Hookup Reducers To Types ------------- */
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 import LoginAction from '../Redux/LoginRedux';
+import OrderAction from '../Redux/OrderRedux';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { Colors, Fonts, Images } from "../Themes";
 import BackHeader from '../Components/BackHeader';
@@ -28,12 +29,18 @@ checkPin = (pin) => {
   const { params } = this.props.navigation.state;
   const type = params && params.type ? params.type : '';
   const username = params && params.username ? params.username : '';
+  const quantity = params && params.quantity ? params.quantity : '';
+  const product = params && params.productId ? params.productId : '';
+  const station = params && params.pomId ? params.pomId : '';
+  const tipe = params && params.tipe ? params.tipe : '';
 
   if(type == 'register') {
     const data = {
       username, pin
     }
     this.props.dispatch(LoginAction.loginRequest(data));
+  } else if (type == 'buy') {
+    this.props.dispatch(OrderAction.orderRequest(station, tipe, product, quantity));
   } else {
     this.props.dispatch(StackActions.reset({
       index: 1,
@@ -45,7 +52,6 @@ checkPin = (pin) => {
           routeName: 'MyOrderScreen',
           params: {
             type,
-            modalVisible: type ==  'buy' ? true : false
           }
         })
       ]
@@ -55,7 +61,7 @@ checkPin = (pin) => {
 
 
   render () {
-    const {fetching} = this.props;
+    const {fetching, fetchingOrder} = this.props;
     return (
       <View style={styles.container}>
         <BackHeader 
@@ -102,7 +108,7 @@ checkPin = (pin) => {
             onFulfill={(pin) => this.checkPin(pin)}
           />
         </View>
-        { (fetching) &&
+        { (fetching || fetchingOrder) &&
             <View style={styles.loading}>
               <ActivityIndicator color={Colors.orange} />
             </View>
@@ -114,7 +120,8 @@ checkPin = (pin) => {
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.login.fetching
+    fetching: state.login.fetching,
+    fetchingOrder: state.order.fetching
   }
 }
 

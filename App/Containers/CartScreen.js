@@ -17,6 +17,7 @@ import ButtonCustom from '../Components/ButtonCustom';
 import BottomFacilities from '../Components/BottomFacilities';
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation';
+import Reactotron from 'reactotron-react-native'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -43,19 +44,21 @@ class CartScreen extends Component {
   }
 
   buyNow = () => {
-    const {
-      params: {
-        item = '',
-        dataPom = '',
-      }
-    } = this.props.navigation.state;
+    const { params } = this.props.navigation.state;
+    const item = params && params.item ? params.item : '';
+    const dataPom = params && params.dataPom ? params.dataPom : '';
+
+    Reactotron.log(item);
+    Reactotron.log(dataPom);
+
     this.props.dispatch(NavigationActions.navigate({ 
       routeName: 'InsertPinScreen',
       params: {
         type: 'buy',
+        tipe: 'PETROL',
         quantity: this.state.count,
-        productId: item.id,
-        pomId: dataPom.id,  
+        productId: item._id,
+        pomId: dataPom._id,  
       }
     }));
   }
@@ -88,7 +91,7 @@ class CartScreen extends Component {
         : dataPom.address
       : '' ;
     let {price, totalPrice, count, dateBooking} = this.state;
-    console.log("price", price, params.item.price, params.item)
+
     return (
       <View style={styles.container}>
         <BackHeader 

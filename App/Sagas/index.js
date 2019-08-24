@@ -11,6 +11,7 @@ import { GetStationsTypes } from '../Redux/GetStationsRedux'
 import { GetProductTypes } from '../Redux/GetProductRedux'
 import { GetPacketTypes } from '../Redux/GetPacketRedux'
 import { GetFacilitiesTypes } from '../Redux/GetFacilitiesRedux'
+import { OrderTypes } from '../Redux/OrderRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -19,7 +20,7 @@ import { getProfile } from './ProfileSagas'
 import { getStationById, getStationByType, getStationAll } from './GetStationsSagas'
 import { getPacketById, getPacketAll } from './GetPacketSagas'
 import { getProductById, getProductByType, getProductAll } from './GetProductSagas'
-
+import { postOrder } from './OrderSagas'
 /* ------------- API ------------- */
 
 // The API we use is only used from Sagas, so we create it here and pass along
@@ -47,6 +48,8 @@ export default function * root () {
     takeLatest(GetProductTypes.GET_PRODUCT_REQUEST_BY_ID, getProductById, api),
     takeLatest(GetProductTypes.GET_PRODUCT_REQUEST_BY_TYPE, getProductByType, api),
     takeLatest(GetProductTypes.GET_PRODUCT_REQUEST_ALL, getProductAll, api),
+
+    takeLatest(OrderTypes.ORDER_REQUEST, postOrder, api),
     // // some sagas receive extra parameters in addition to an action
     // takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
   ])
