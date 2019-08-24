@@ -5,6 +5,7 @@ const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
+  ...ApplicationStyles.loading,
   viewButton:{
     flexDirection: 'column',
     justifyContent: 'flex-start',

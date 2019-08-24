@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import RootContainer from './RootContainer'
 import createStore from '../Redux'
+import Geocode from "react-geocode";
 
 // create our store
 const store = createStore()
@@ -18,6 +19,9 @@ const store = createStore()
  * We separate like this to play nice with React Native's hot reloading.
  */
 class App extends Component {
+  componentDidMount() {
+    Geocode.setApiKey("AIzaSyDb4ayJVlzMFxmpkhfKolEzQo2tz-Z8Psc");
+  }
   render () {
     return (
       <Provider store={store}>

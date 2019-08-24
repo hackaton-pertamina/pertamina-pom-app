@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'https://api.github.com/') => {
+const create = (baseURL = 'https://lets-gas-webservice.herokuapp.com/api/') => {
   // ------
   // STEP 1
   // ------
@@ -35,8 +35,29 @@ const create = (baseURL = 'https://api.github.com/') => {
   // way at this level.
   //
   const getRoot = () => api.get('')
-  const getRate = () => api.get('rate_limit')
-  const getUser = (username) => api.get('search/users', {q: username})
+  const setAuthToken = userAuth => api.setHeader("Authorization", "Bearer " + userAuth);
+  const removeAuthToken = () => api.setHeader("Authorization", "");
+  const getUser = () => api.get("users/profile");
+  const signup = body => api.post("users/signup/", body);
+  const sigin = body => api.post("users/signin/", body);
+  const getProductList = params => api.get("/products/", params);
+  const getProductByType = params => api.get(`/products/type/${params}/`);
+  const getProductById = id => api.get(`/products/${id}/`);
+  const getFacilitiesList = params => api.get("/facilities/", params);
+  const getFacilitiesByType = params => api.get(`/facilities/type/${params}/`);
+  const getFacilitiesById = id => api.get(`/facilities/${id}/`);
+  const getPacketList = params => api.get("/bundles/", params);
+  const getPacketByType = params => api.get(`/bundles/type/${params}/`);
+  const getPacketById = id => api.get(`/bundles/${id}/`);
+  const getStationList = params => api.get("/stations/", params);
+  const getStationByType = params => api.get(`/stations/type/${params}/`);
+  const getStationById = id => api.get(`/stations/${id}/`);
+  const getOrderList = params => api.get("/orders/", params);
+  const getOrderById = id => api.get(`/orders/${id}/`);
+  const postOrder = body => api.post("/orders/", body);
+  const getSubcriptionList = params => api.get("/subscriptions/", params);
+  const getSubcriptionByType = params => api.get(`/subscriptions/type/${params}/`);
+  const getSubcriptionById = id => api.get(`/subscriptions/${id}/`);
 
   // ------
   // STEP 3
@@ -53,8 +74,29 @@ const create = (baseURL = 'https://api.github.com/') => {
   return {
     // a list of the API functions from step 2
     getRoot,
-    getRate,
-    getUser
+    getUser,
+    setAuthToken,
+    removeAuthToken,
+    signup,
+    sigin,
+    getProductList,
+    getProductByType,
+    getProductById,
+    getFacilitiesList,
+    getFacilitiesByType,
+    getFacilitiesById,
+    getPacketList,
+    getPacketByType,
+    getPacketById,
+    getStationList,
+    getStationByType,
+    getStationById,
+    getOrderList,
+    getOrderById,
+    postOrder,
+    getSubcriptionList,
+    getSubcriptionByType,
+    getSubcriptionById,
   }
 }
 

@@ -1,5 +1,7 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import SignupScreen from '../Containers/SignupScreen'
 import LoginScreen from '../Containers/LoginScreen'
+import IntroScreen from '../Containers/IntroScreen'
 import ServiceLocationScreen from '../Containers/ServiceLocationScreen'
 import HistoryUsageScreen from '../Containers/HistoryUsageScreen'
 import HistoryTransactionScreen from '../Containers/HistoryTransactionScreen'
@@ -16,8 +18,14 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  SignupScreen: { screen: SignupScreen },
   LoginScreen: { 
     screen: LoginScreen,
+    navigationOptions: {
+      header: null,
+  }},
+  IntroScreen: { 
+    screen: IntroScreen,
     navigationOptions: {
       header: null,
   }},
@@ -67,7 +75,7 @@ const PrimaryNav = createStackNavigator({
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'LoginScreen',
+  initialRouteName: 'IntroScreen',
   navigationOptions: {
     headerStyle: styles.header
   }

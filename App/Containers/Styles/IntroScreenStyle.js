@@ -5,24 +5,42 @@ const { width, height } = Dimensions.get('window')
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   viewMargin:{
-    marginTop: 16,
     marginLeft: 16,
     marginRight: 16,
     flexDirection: 'column',
     justifyContent: 'flex-start',
+  },
+  viewImage:{
+    justifyContent: 'center',
+    flexDirection: 'column',
+    padding: 16,
+  },
+  viewCol:{
+    margin: 16,
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    padding: 16,
   },
   viewRow:{
     marginLeft: 16,
     marginRight: 16,
     marginTop: 5,
     marginBottom: 8,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     flexDirection: 'row',
   },
+  view2Button:{
+    flex: 4,
+    paddingLeft: 10,
+    paddingRight: 8,
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
   text16:{
-    textAlign: 'left',
+    textAlign: 'center',
     ...Fonts.style.medium16,
     color: Colors.black,
+    fontWeight: 'bold'
   },
   text14:{
     textAlign: 'center',
@@ -35,20 +53,14 @@ export default StyleSheet.create({
     ...Fonts.style.roboto10,
     color: Colors.black,
   },
-  viewRow1:{
-    flex: 4,
-    padding: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  viewBorder:{
-    height: 1,
+  imgContainer:{
+    height: height/3.5,
     width: width/3,
-    borderBottomColor: Colors.black,
-    borderBottomWidth: 0.5,
-    flexDirection: 'row',
-    alignSelf: 'center',
-    marginTop: 16,
+    alignSelf: 'center'
+  },
+  imgLogo:{
+    height: 70,
+    width: 200,
+    alignSelf: 'center'
   }
 })

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
+import LoginAction from '../Redux/LoginRedux';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { Colors, Fonts, Images } from "../Themes";
 import BackHeader from '../Components/BackHeader';
@@ -23,10 +24,17 @@ goBack = () => {
   this.props.navigation.goBack();
 }
 
-checkPin = () => {
+checkPin = (pin) => {
   const { params } = this.props.navigation.state;
   const type = params && params.type ? params.type : '';
+  const username = params && params.username ? params.username : '';
 
+  if(type == 'register') {
+    const data = {
+      username, pin
+    }
+    this.props.dispatch(LoginAction.loginRequest(data));
+  } else {
     this.props.dispatch(StackActions.reset({
       index: 1,
       actions: [
@@ -42,10 +50,12 @@ checkPin = () => {
         })
       ]
     }));
+  }
 }
 
 
   render () {
+    const {fetching} = this.props;
     return (
       <View style={styles.container}>
         <BackHeader 
@@ -89,9 +99,14 @@ checkPin = () => {
             cellStyleFocused={null}
             value={this.state.pin && this.state.pin}
             onTextChange={pin => this.setState({ pin })}
-            onFulfill={this.checkPin}
+            onFulfill={(pin) => this.checkPin(pin)}
           />
         </View>
+        { (fetching) &&
+            <View style={styles.loading}>
+              <ActivityIndicator color={Colors.orange} />
+            </View>
+        }
       </View>
     )
   }
@@ -99,6 +114,7 @@ checkPin = () => {
 
 const mapStateToProps = (state) => {
   return {
+    fetching: state.login.fetching
   }
 }
 

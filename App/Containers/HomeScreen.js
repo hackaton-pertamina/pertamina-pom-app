@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Image, ScrollView, Text, TouchableOpacity, View, Dimensions } from "react-native";
+import { FlatList, Image, ScrollView, Text, TouchableOpacity, View, Dimensions, ToastAndroid } from "react-native";
 import * as Animatable from "react-native-animatable";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { NavigationActions } from 'react-navigation';
@@ -11,7 +11,11 @@ import Subscription from '../Components/Subscription';
 import { Colors, Images } from "../Themes";
 import SlidingUpPanel from 'rn-sliding-up-panel';
 const { width, height } = Dimensions.get('window')
-
+import { 
+  showLocationServiceDialog, 
+  requestLocationPermission, 
+  getCurrentLocation } from '../Services/LocationService';
+  import Geocode from "react-geocode";
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 // Styles
@@ -28,6 +32,7 @@ class HomeScreen extends Component {
       refreshing: false,
       type: '',
       dataPom: {},
+      address: '',
       listNear: [
         {
           id: 1,
@@ -105,7 +110,69 @@ class HomeScreen extends Component {
           color : Colors.red
         }
       ],
+      currentLocation: {
+        longitude: -6.2329997,
+        latitude: 106.8102324,
+        latitudeDelta: 12,
+        longitudeDelta: 12,
+      },
     }
+  }
+
+  startup = async () => {
+    await this.checkLocationStatus();
+  }
+
+  componentDidMount() {
+    this.startup();
+  }
+
+  checkLocationStatus = async () => {
+    // Untuk mengecek posisi lokasi user
+    try {
+      const locationPermissionEnabled = await requestLocationPermission();
+
+      if (locationPermissionEnabled) {
+        await showLocationServiceDialog();
+        await this.getCurrentPosition();
+      } 
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+
+  getCurrentPosition = async (timeout = 60000) => {
+    // Untuk mengupdate / cek lokasi posisi saat ini
+    try {
+      // Penggunaan function berbeda untuk mendapatkan posisi lokasi
+      await getCurrentLocation(timeout).then((position) => {
+        const currentLocation = {
+          latitude:  position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        }
+        this.setState({currentLocation});
+        this.getAddress(currentLocation.latitude, currentLocation.longitude);
+      }); 
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  getAddress = (lat, long) => {
+    // Get address from latidude & longitude.
+    Geocode.fromLatLng(lat, longitude).then(
+      response => {
+        const address = response.results[0].formatted_address;
+        console.log(address);
+        this.setState({address})
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   topUpSaldo = () => {
@@ -210,8 +277,10 @@ class HomeScreen extends Component {
   }
 
   render () {
-    let {listNear, listService, listProduct, type} = this.state;
-    const photo = '';
+    let {listNear, listService, listProduct, type, address} = this.state;
+    const {profile} = this.props;
+    const photo = profile && profile.avatar || '';
+    const saldo = profile && profile.link_aja_balance || '';
 
     const bottomProductList = 
       <View style={styles.viewBottom}>
@@ -266,7 +335,7 @@ class HomeScreen extends Component {
             {photo ? (
             <Image
               resizeMode="cover"
-              source={{ uri: photo ? photo.imageUri  : ''}}
+              source={{ uri: photo ? photo  : ''}}
               style={styles.imgAva}
             />
             ) : (
@@ -298,7 +367,7 @@ class HomeScreen extends Component {
           </TouchableOpacity>
         </View>
         <ScrollView contentContainerStyle={styles.viewScrollList} >
-          <InfoSaldo onPress={this.topUpSaldo} />
+          <InfoSaldo saldo={saldo} onPress={this.topUpSaldo} />
           <Subscription 
             onPressSub={this.subscribeNow}
             onPressOrder={this.orderNow} 
@@ -341,7 +410,7 @@ class HomeScreen extends Component {
             <View style={styles.viewMyLoc}>
               <View style={styles.colMyLoc}>
                 <Text style={styles.text10}> Lokasi Anda </Text>
-                <Text style={[styles.text10, {color: Colors.lblGrey}]}> Jalan wusyang 3 </Text>
+                <Text style={[styles.text10, {color: Colors.lblGrey}]}> {address} </Text>
               </View>
               <Icon
                 style={styles.iconStyle}
@@ -378,6 +447,7 @@ class HomeScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    profile: state.profile.data,
   }
 }
 

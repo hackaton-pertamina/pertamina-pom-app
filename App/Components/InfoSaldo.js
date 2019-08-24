@@ -8,7 +8,7 @@ export default class InfoSaldo extends Component {
 
 
   render () {
-    const {onPress} = this.props;
+    const {onPress, saldo} = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.row1}>
@@ -17,7 +17,7 @@ export default class InfoSaldo extends Component {
             source={Images.linkAja}
             style={styles.viewImg}
           />
-          <Text style={styles.lbl1}>Rp. 500.000</Text>
+          <Text style={styles.lbl1}>Rp. {saldo}</Text>
         </View>
         <ButtonCustom onPress={onPress} textMain={'Isi Saldo'} isBorder={true} padding={10}/>
       </View>
