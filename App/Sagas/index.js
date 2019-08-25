@@ -20,7 +20,7 @@ import { getProfile } from './ProfileSagas'
 import { getStationById, getStationByType, getStationAll } from './GetStationsSagas'
 import { getPacketById, getPacketAll } from './GetPacketSagas'
 import { getProductById, getProductByType, getProductAll } from './GetProductSagas'
-import { postOrder } from './OrderSagas'
+import { postOrder, getOrder } from './OrderSagas'
 /* ------------- API ------------- */
 
 // The API we use is only used from Sagas, so we create it here and pass along
@@ -50,6 +50,7 @@ export default function * root () {
     takeLatest(GetProductTypes.GET_PRODUCT_REQUEST_ALL, getProductAll, api),
 
     takeLatest(OrderTypes.ORDER_REQUEST, postOrder, api),
+    takeLatest(OrderTypes.GET_ORDER_REQUEST, getOrder, api),
     // // some sagas receive extra parameters in addition to an action
     // takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
   ])

@@ -11,6 +11,7 @@ export default class BottomFacilities extends Component {
   // }
 
   render () {
+    const {distance, facilities} = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.col1}>
@@ -18,24 +19,18 @@ export default class BottomFacilities extends Component {
             Fasilitas
           </Text>
           <View style={styles.rowAround}>
-            <Icon
-              style={styles.iconStyle}
-              name="cash-usd"
-              size={24}
-              color={Colors.iconGrey}
-            />
-            <Icon
-              style={styles.iconStyle}
-              name="food"
-              size={24}
-              color={Colors.iconGrey}
-            />
-            <Icon2
-              style={styles.iconStyle}
-              name="wc"
-              size={24}
-              color={Colors.iconGrey}
-            />
+          {facilities && facilities.length > 0 && facilities.map((item, i) => {
+              return (<Icon
+                key={i}
+                style={styles.iconStyle}
+                name={item.name == 'ATM' ? 'cash-usd' :
+                      item.name == 'Restoran' ? 'food' :
+                      item.name == 'Toilet' ? 'human-male-female' : ''}
+                size={24}
+                color={Colors.iconGrey}
+              />)
+            })
+          }
           </View>
         </View>
         <View style={styles.rowBetween}>
@@ -44,7 +39,7 @@ export default class BottomFacilities extends Component {
               Jarak Dari Tempat Anda
             </Text>
             <Text style={[styles.text12, {color: Colors.orange, fontSize: 14, textAlign: 'right'}]}>
-              1.5 Km
+              {distance} Km
             </Text>
           </View>
           <View style={styles.floating}>

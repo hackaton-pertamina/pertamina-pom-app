@@ -4,9 +4,12 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  orderRequest: ['station', 'tipe', 'product', 'quantity'],
+  orderRequest: ['station', 'tipe', 'product', 'quantity', 'dataPom'],
   orderSuccess: ['data'],
-  orderFailure: null
+  orderFailure: null,
+  getOrderRequest: ['id'],
+  getOrderSuccess: ['data'],
+  getOrderFailure: null
 })
 
 export const OrderTypes = Types
@@ -47,5 +50,8 @@ export const failure = state =>
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.ORDER_REQUEST]: request,
   [Types.ORDER_SUCCESS]: success,
-  [Types.ORDER_FAILURE]: failure
+  [Types.ORDER_FAILURE]: failure,
+  [Types.GET_ORDER_REQUEST]: request,
+  [Types.GET_ORDER_SUCCESS]: success,
+  [Types.GET_ORDER_FAILURE]: failure,
 })

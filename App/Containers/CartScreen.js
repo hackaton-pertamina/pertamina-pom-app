@@ -58,7 +58,8 @@ class CartScreen extends Component {
         tipe: 'PETROL',
         quantity: this.state.count,
         productId: item._id,
-        pomId: dataPom._id,  
+        pomId: dataPom._id,
+        dataPom,
       }
     }));
   }
@@ -215,7 +216,7 @@ class CartScreen extends Component {
           </View>
         </ScrollView>
         { type != 'subscribe'&&
-          <BottomFacilities />
+          <BottomFacilities distance={dataPom.distance.toFixed(2)} facilities={dataPom && dataPom.facilities || []}/>
         }
       </View>
     )

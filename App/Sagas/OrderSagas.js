@@ -15,7 +15,7 @@ import OrderActions from '../Redux/OrderRedux'
 import { StackActions, NavigationActions } from 'react-navigation';
 // import { OrderSelectors } from '../Redux/OrderRedux'
 
-export function * postOrder (api, {station, tipe, product, quantity}) {
+export function * postOrder (api, {station, tipe, product, quantity, dataPom}) {
   const body = {
     station, 
     type: tipe, 
@@ -32,7 +32,8 @@ export function * postOrder (api, {station, tipe, product, quantity}) {
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
     // located in ../Transforms/. Otherwise, just pass the data back from the api.
-    yield put(OrderActions.orderSuccess(response.data.data))
+    yield put(OrderActions.orderSuccess(response.data.data));
+  
     yield put(
       StackActions.reset({
         index: 1,
@@ -44,7 +45,8 @@ export function * postOrder (api, {station, tipe, product, quantity}) {
             routeName: 'MyOrderScreen',
             params: {
               type: 'personal',
-              modalVisible: true
+              modalVisible: true,
+              dataPom
             }
           })
         ]
@@ -53,5 +55,24 @@ export function * postOrder (api, {station, tipe, product, quantity}) {
 
   } else {
     yield put(OrderActions.orderFailure())
+  }
+}
+
+export function * getOrder (api, {id}) {
+
+
+  // get current data from Store
+  // const currentData = yield select(OrderSelectors.getData)
+  // make the call to the api
+  const response = yield call(api.getOrderById, id)
+
+  // success?
+  if (response.ok) {
+    // You might need to change the response here - do this with a 'transform',
+    // located in ../Transforms/. Otherwise, just pass the data back from the api.
+    yield put(OrderActions.getOrderSuccess(response.data.data));
+
+  } else {
+    yield put(OrderActions.GET_ORDER_FAILURE())
   }
 }

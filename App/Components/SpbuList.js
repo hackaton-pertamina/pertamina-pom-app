@@ -43,7 +43,7 @@ export default class SpbuList extends Component {
             { type != 'service' &&
               productList.map((item, i) => {
                 return (
-                    <Text key={i}  numberOfLines={2} ellipsizeMode="tail" style={[styles.text8, !isOpen && i != 0  ? styles.customText :
+                    <Text key={i}  numberOfLines={2} ellipsizeMode="tail" style={[styles.text8, i != 0 && {marginLeft: 4}, !isOpen && i != 0  ? styles.customText :
                                   {color : Colors.lblGrey, fontSize: 8}]}>
                       {item.name}
                     </Text>

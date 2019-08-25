@@ -32,6 +32,7 @@ checkPin = (pin) => {
   const quantity = params && params.quantity ? params.quantity : '';
   const product = params && params.productId ? params.productId : '';
   const station = params && params.pomId ? params.pomId : '';
+  const dataPom = params && params.dataPom ? params.dataPom : '';
   const tipe = params && params.tipe ? params.tipe : '';
 
   if(type == 'register') {
@@ -40,7 +41,7 @@ checkPin = (pin) => {
     }
     this.props.dispatch(LoginAction.loginRequest(data));
   } else if (type == 'buy') {
-    this.props.dispatch(OrderAction.orderRequest(station, tipe, product, quantity));
+    this.props.dispatch(OrderAction.orderRequest(station, tipe, product, quantity, dataPom));
   } else {
     this.props.dispatch(StackActions.reset({
       index: 1,

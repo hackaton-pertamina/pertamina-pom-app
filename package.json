@@ -33,6 +33,7 @@
     "identity-obj-proxy": "^3.0.0",
     "ignite": "^1.10.2",
     "lodash": "^4.17.11",
+    "moment": "^2.24.0",
     "prop-types": "^15.6.1",
     "querystringify": "2.1.0",
     "ramda": "^0.26.1",

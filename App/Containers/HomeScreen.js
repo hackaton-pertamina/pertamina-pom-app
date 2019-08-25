@@ -388,7 +388,7 @@ class HomeScreen extends Component {
           <Subscription 
             onPressSub={this.subscribeNow}
             onPressOrder={this.orderNow} 
-            isSubs={true}
+            isSubs={false}
             saldo={30} 
             typeId={1}
             name={'Pertalite'}
